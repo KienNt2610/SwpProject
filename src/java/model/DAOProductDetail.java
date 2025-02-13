@@ -81,19 +81,19 @@ public class DAOProductDetail extends DBCConnection {
         return n;
     }
 
-    // Get a list of ProductDetails based on a SQL query
-    public Vector<ProductDetail> getProductDetails(String sql) {
+    // Get a list of ProductDetail based on a SQL query
+    public Vector<ProductDetail> getProductDetail(String sql) {
         Vector<ProductDetail> vector = new Vector<ProductDetail>();
         try {
             Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = state.executeQuery(sql);
 
             while (rs.next()) {
-                int detailId = rs.getInt("DetailId");
-                int productId = rs.getInt("ProductId");
-                String color = rs.getString("Color");
-                String size = rs.getString("Size");
-                ProductDetail productDetail = new ProductDetail(detailId, productId, color, size);
+                int DetailId = rs.getInt("DetailId");
+                int ProductId = rs.getInt("ProductId");
+                String Color = rs.getString("Color");
+                String Size = rs.getString("Size");
+                ProductDetail productDetail = new ProductDetail(DetailId, ProductId, Color, Size);
                 vector.add(productDetail);
             }
         } catch (SQLException ex) {
@@ -104,7 +104,7 @@ public class DAOProductDetail extends DBCConnection {
 
     public static void main(String[] args) {
         DAOProductDetail dao = new DAOProductDetail();
-        Vector<ProductDetail> vector = dao.getProductDetails("SELECT * FROM ProductDetail");
+        Vector<ProductDetail> vector = dao.getProductDetail("select * from ProductDetail");
         for (ProductDetail productDetail : vector) {
             System.out.println(productDetail);
         }
