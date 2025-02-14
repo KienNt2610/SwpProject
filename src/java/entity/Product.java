@@ -18,10 +18,10 @@ public class Product {
     private String Description;
     private boolean Discontinued;
 
-    public Product(String ProductName1, int CategoryId1, double Price1, int Quantity1, String Description1, String discontinued) {
+    public Product() {
     }
 
-    public Product(int CategoryId, String ProductName, int Quantity, double Price, int Quantity1, String Description, String discontinued) {
+    public Product(String ProductName, int CategoryId, double Price, int Quantity, String Description, boolean Discontinued) {
         this.ProductName = ProductName;
         this.CategoryId = CategoryId;
         this.Price = Price;

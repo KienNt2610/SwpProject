@@ -101,7 +101,7 @@ public class ProductController extends HttpServlet {
                         return;
                     }
                     boolean discontinued = (Integer.parseInt(Discontinued) == 1 ? true : false);
-                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, Discontinued);
+                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, discontinued);
                     int n = dao.addProduct(product);
                     response.sendRedirect("ProductURL?service=listAllProduct");
                 }
