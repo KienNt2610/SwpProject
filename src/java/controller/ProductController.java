@@ -25,6 +25,35 @@ public class ProductController extends HttpServlet {
             if (service == null) {
                 service = "listAllProduct";
             }
+
+            if (service.equals("Filter")) {
+                // Cập nhật lại câu lệnh SQL với các điều kiện lọc và sắp xếp đã thiết lập
+                // Lấy các tham số lọc và sắp xếp
+                String sortBy = request.getParameter("sortBy");
+                String categoryId = request.getParameter("categoryId");
+
+                // Khởi tạo câu lệnh SQL với điều kiện cơ bản
+                String sql = "SELECT * FROM Product WHERE 1=1"; // Dùng 1=1 để thuận tiện thêm điều kiện
+
+                // Thêm điều kiện lọc theo categoryId
+                if (categoryId != null && !categoryId.trim().isEmpty()) {
+                    sql += " AND CategoryId = '" + categoryId + "'"; // Lọc theo CategoryId
+                }
+
+                // Thêm điều kiện sắp xếp theo giá
+                if ("priceAsc".equals(sortBy)) {
+                    sql += " ORDER BY Price ASC"; // Sắp xếp tăng dần theo Price
+                } else if ("priceDesc".equals(sortBy)) {
+                    sql += " ORDER BY Price DESC"; // Sắp xếp giảm dần theo Price
+                }
+
+                Vector<Product> vector = dao.getProduct(sql);
+                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayProduct.jsp");
+                request.setAttribute("data", vector);
+                request.setAttribute("title", "Filtered Product List");
+                dispath.forward(request, response);
+            }
+
             if (service.equals("deleteProduct")) {
                 dao.deleteProduct(Integer.parseInt(request.getParameter("pid")));
                 response.sendRedirect("ProductURL?service=listAllProduct");
@@ -34,7 +63,7 @@ public class ProductController extends HttpServlet {
                 String submit = request.getParameter("submit");
                 if (submit == null) {
                     int pid = Integer.parseInt(request.getParameter("pid"));
-                    Vector<Product> vector = dao.getProduct("select * from Product where ProductId=" + pid);
+                    Vector<Product> vector = dao.getProduct("SELECT * FROM Product WHERE ProductId=" + pid);
                     request.setAttribute("vector", vector);
                     request.getRequestDispatcher("/update-jsp/updateProduct.jsp").forward(request, response);
                 } else {
@@ -73,7 +102,8 @@ public class ProductController extends HttpServlet {
                         out.print("Product name is not empty");
                         return;
                     }
-                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, true);
+                    boolean discontinued = (Integer.parseInt(Discontinued) == 1 ? true : false);
+                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, Discontinued);
                     int n = dao.addProduct(product);
                     response.sendRedirect("ProductURL?service=listAllProduct");
                 }
