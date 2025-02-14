@@ -27,13 +27,11 @@ public class ProductController extends HttpServlet {
             }
 
             if (service.equals("Filter")) {
-                // Cập nhật lại câu lệnh SQL với các điều kiện lọc và sắp xếp đã thiết lập
-                // Lấy các tham số lọc và sắp xếp
                 String sortBy = request.getParameter("sortBy");
                 String categoryId = request.getParameter("categoryId");
 
                 // Khởi tạo câu lệnh SQL với điều kiện cơ bản
-                String sql = "SELECT * FROM Product WHERE 1=1"; // Dùng 1=1 để thuận tiện thêm điều kiện
+                String sql = "SELECT * FROM Product WHERE 1=1"; 
 
                 // Thêm điều kiện lọc theo categoryId
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
