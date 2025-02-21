@@ -119,11 +119,12 @@ public class OrderController extends HttpServlet {
                 String submit = request.getParameter("submit");
                 String message = request.getParameter("message");
                 String customerId = request.getParameter("customerId");
+                String orderId = request.getParameter("orderId");
 
                 if (submit == null) {
                     sql = "select * from [Order]";
                 } else {
-                    sql = "select * from [Order] where Message like '%" + message + "%'";
+                    sql = "select * from [Order] where OrderId like '%" + orderId + "%'";
                 }
                 if (customerId != null) {
                     sql = "select * from [Order] where CustomerId like '" + customerId + "'";
