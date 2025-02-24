@@ -25,6 +25,44 @@ public class OrderController extends HttpServlet {
             if (service == null) {
                 service = "listAllOrder";
             }
+
+            if (service.equals("Filter")) {
+                // Lấy các tham số lọc từ yêu cầu
+                String sortBy = request.getParameter("sortBy");
+                String customerId = request.getParameter("customerId");
+                String startDate = request.getParameter("startDate");
+                String endDate = request.getParameter("endDate");
+
+                // Khởi tạo câu lệnh SQL với điều kiện cơ bản
+                String sql = "SELECT * FROM [Order] WHERE 1=1"; 
+
+                // Thêm điều kiện lọc theo CustomerId
+                if (customerId != null && !customerId.trim().isEmpty()) {
+                    sql += " AND CustomerId = '" + customerId + "'"; // Lọc theo CustomerId
+                }
+
+                // Thêm điều kiện lọc theo khoảng thời gian (startDate, endDate)
+                if (startDate != null && !startDate.trim().isEmpty() && endDate != null && !endDate.trim().isEmpty()) {
+                    sql += " AND [Date] BETWEEN '" + startDate + "' AND '" + endDate + "'"; // Lọc theo khoảng thời gian
+                }
+
+                // Thêm điều kiện sắp xếp theo TotalPrice
+                if ("totalPriceAsc".equals(sortBy)) {
+                    sql += " ORDER BY TotalPrice ASC"; // Sắp xếp tăng dần theo TotalPrice
+                } else if ("totalPriceDesc".equals(sortBy)) {
+                    sql += " ORDER BY TotalPrice DESC"; // Sắp xếp giảm dần theo TotalPrice
+                }
+
+                // Thực hiện truy vấn và lấy kết quả
+                Vector<Order> vector = dao.getOrder(sql);
+
+                // Chuyển dữ liệu đến trang hiển thị
+                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayOrder.jsp");
+                request.setAttribute("data", vector);
+                request.setAttribute("title", "Filtered Order List");
+                dispath.forward(request, response);
+            }
+
             if (service.equals("deleteOrder")) {
                 dao.deleteOrder(Integer.parseInt(request.getParameter("oid")));
                 response.sendRedirect("OrderURL?service=listAllOrder");
@@ -81,11 +119,12 @@ public class OrderController extends HttpServlet {
                 String submit = request.getParameter("submit");
                 String message = request.getParameter("message");
                 String customerId = request.getParameter("customerId");
+                String orderId = request.getParameter("orderId");
 
                 if (submit == null) {
                     sql = "select * from [Order]";
                 } else {
-                    sql = "select * from [Order] where Message like '%" + message + "%'";
+                    sql = "select * from [Order] where OrderId like '%" + orderId + "%'";
                 }
                 if (customerId != null) {
                     sql = "select * from [Order] where CustomerId like '" + customerId + "'";

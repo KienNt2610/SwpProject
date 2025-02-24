@@ -13,12 +13,13 @@
         String title = (String) request.getAttribute("title");
     %>
     <form action="OrderURL" method="get">
-        <p>Search by Message: <input type="text" name="message" id="">
+        <p>Search by Order ID: <input type="text" name="orderId" id="">
         <input type="submit" value="Search" name="submit">
         <input type="reset" value="Clear">
     </p>
     </form>
 
+    
     <p><a href="OrderURL?service=insertOrder">Insert Order</a></p>
     <table border="1px">
        <caption><%-- title --%></caption>

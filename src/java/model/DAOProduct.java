@@ -81,10 +81,10 @@ public class DAOProduct extends DBCConnection {
         // Example: check if the product is referenced in other tables (similar to downloads or reviews)
         // If referenced, change status instead of deleting
         String sqlCheckOrderDetail = "select * from OrderDetail WHERE ProductId=" + pid;
-        String sqlCheckFeedback = "select * from Feedback WHERE ProductId=" +pid;
-        String sqlCheckCartDetail = "select * from CartDetail WHERE ProductId=" +pid;
-        String sqlCheckProductDetail = "select * from ProductDetail WHERE ProductId=" +pid;
-        
+        String sqlCheckFeedback = "select * from Feedback WHERE ProductId=" + pid;
+        String sqlCheckCartDetail = "select * from CartDetail WHERE ProductId=" + pid;
+        String sqlCheckProductDetail = "select * from ProductDetail WHERE ProductId=" + pid;
+
         ResultSet rsOrderDetail = getData(sqlCheckOrderDetail);
         ResultSet rsFeedback = getData(sqlCheckFeedback);
         ResultSet rsCartDetail = getData(sqlCheckCartDetail);
@@ -129,12 +129,11 @@ public class DAOProduct extends DBCConnection {
 
     public Vector<Product> getProduct(String sql) {
         Vector<Product> vector = new Vector<Product>();
-        try {
-            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = state.executeQuery(sql);
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            ResultSet rs = pre.executeQuery();
 
             while (rs.next()) {
-                int ProductId = rs.getInt(1);
+                int ProductId = rs.getInt("ProductId");
                 String ProductName = rs.getString("ProductName");
                 int CategoryId = rs.getInt("CategoryId");
                 double Price = rs.getDouble("Price");
