@@ -49,18 +49,21 @@
                         </p>
                     </form>
 
-                    <form action="ProductURL" method="get">
+                    <form action="ProductURL" method="GET">
                         <input type="hidden" name="service" value="sort">
+                        <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
 
-                        <!-- Sort by Price -->
-                        <p>Sort by Price:
-                            <select name="sortBy">
-                                <option value="priceAsc" <%= "priceAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price: Low to High</option>
-                                <option value="priceDesc" <%= "priceDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price: High to Low</option>
-                            </select>
-                            <input type="submit" value="Sort">
-                        </p>
+                        <label for="sort">Sort By:</label>
+                        <select name="sortBy" id="sort">
+                            <option value="priceAsc" <%= "priceAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price: Low to High</option>
+                            <option value="priceDesc" <%= "priceDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price: High to Low</option>
+                            <option value="nameAsc" <%= "nameAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Name: A-Z</option>
+                            <option value="nameDesc" <%= "nameDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Name: Z-A</option>
+                        </select>
+
+                        <button type="submit">Sort</button>
                     </form>
+
 
                     <form action="ProductURL" method="get">
                         <input type="hidden" name="service" value="filter">
@@ -97,7 +100,7 @@
                                 <td><%= product.getDescription() %></td>
                                 <td><%= product.isDiscontinued() ? "Yes" : "No" %></td>
                                 <td>
-                                    <a href="ProductURL?service=updateProduct&pid=<%= product.getProductId() %>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                    <a href="ProductURL?service=updateProduct&pid=<%= product.getProductId() %>" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                     <a href="ProductURL?service=deleteProduct&pid=<%= product.getProductId() %>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                                 </td>
                             </tr>

@@ -1,5 +1,6 @@
 package model;
 
+import entity.Category;
 import entity.Product;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -147,6 +148,24 @@ public class DAOProduct extends DBCConnection {
             Logger.getLogger(DAOProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vector;
+    }
+
+    public Vector<Category> getCategories() {
+        Vector<Category> categories = new Vector<>();
+        String sql = "SELECT * FROM Category";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("CategoryId");
+                String name = rs.getString("CategoryName");
+                categories.add(new Category(id, name));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categories;
     }
 
     public static void main(String[] args) {

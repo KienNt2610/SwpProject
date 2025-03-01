@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Category;
 import entity.Product;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -26,29 +27,52 @@ public class ProductController extends HttpServlet {
                 service = "listAllProduct";
             }
 
-            if (service.equals("Filter")) {
+            if (service.equalsIgnoreCase("Filter")) {
                 String sortBy = request.getParameter("sortBy");
                 String categoryId = request.getParameter("categoryId");
 
                 // Khởi tạo câu lệnh SQL với điều kiện cơ bản
-                String sql = "SELECT * FROM Product WHERE 1=1"; 
+                String sql = "SELECT * FROM Product WHERE 1=1";
 
                 // Thêm điều kiện lọc theo categoryId
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
                     sql += " AND CategoryId = '" + categoryId + "'"; // Lọc theo CategoryId
                 }
 
-                // Thêm điều kiện sắp xếp theo giá
-                if ("priceAsc".equals(sortBy)) {
-                    sql += " ORDER BY Price ASC"; // Sắp xếp tăng dần theo Price
-                } else if ("priceDesc".equals(sortBy)) {
-                    sql += " ORDER BY Price DESC"; // Sắp xếp giảm dần theo Price
-                }
-
                 Vector<Product> vector = dao.getProduct(sql);
-                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayProduct.jsp");
+                RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayProduct.jsp");
                 request.setAttribute("data", vector);
                 request.setAttribute("title", "Filtered Product List");
+                dispath.forward(request, response);
+            }
+            if (service.equalsIgnoreCase("sort")) {
+                String sortBy = request.getParameter("sortBy");
+                String categoryId = request.getParameter("categoryId");  // Giữ lại categoryId khi sort
+
+                String sql = "SELECT * FROM Product WHERE 1=1"; // Điều kiện mặc định
+
+                if (categoryId != null && !categoryId.trim().isEmpty()) {
+                    sql += " AND CategoryId = " + Integer.parseInt(categoryId); // Giữ filter theo categoryId
+                }
+
+                if ("priceAsc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY Price ASC";
+                } else if ("priceDesc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY Price DESC";
+                } else if ("nameAsc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY ProductName ASC";
+                } else if ("nameDesc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY ProductName DESC";
+                }
+
+                // Debug kiểm tra SQL
+                System.out.println("Executing SQL: " + sql);
+
+                Vector<Product> vector = dao.getProduct(sql);
+                request.setAttribute("data", vector);
+                request.setAttribute("title", "Sorted Product List");
+                request.setAttribute("selectedCategory", categoryId); // Để giữ category đã chọn khi hiển thị
+                RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayProduct.jsp");
                 dispath.forward(request, response);
             }
 
@@ -63,7 +87,7 @@ public class ProductController extends HttpServlet {
                     int pid = Integer.parseInt(request.getParameter("pid"));
                     Vector<Product> vector = dao.getProduct("SELECT * FROM Product WHERE ProductId=" + pid);
                     request.setAttribute("vector", vector);
-                    request.getRequestDispatcher("/update-jsp/updateProduct.jsp").forward(request, response);
+                    request.getRequestDispatcher("/staff/update-jsp/updateProduct.jsp").forward(request, response);
                 } else {
                     int ProductId = Integer.parseInt(request.getParameter("ProductId"));
                     String ProductName = request.getParameter("ProductName");
@@ -87,7 +111,7 @@ public class ProductController extends HttpServlet {
             if (service.equals("insertProduct")) {
                 String submit = request.getParameter("submit");
                 if (submit == null) {
-                    request.getRequestDispatcher("/insert-jsp/insertProduct.jsp").forward(request, response);
+                    request.getRequestDispatcher("/staff/insert-jsp/insertProduct.jsp").forward(request, response);
                 } else {
                     String ProductName = request.getParameter("ProductName");
                     int CategoryId = Integer.parseInt(request.getParameter("CategoryId"));
@@ -123,11 +147,44 @@ public class ProductController extends HttpServlet {
                 }
 
                 Vector<Product> vector = dao.getProduct(sql);
-                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayProduct.jsp");
+                RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayProduct.jsp");
                 request.setAttribute("data", vector);
                 request.setAttribute("title", "Product manager");
                 dispath.forward(request, response);
             }
+
+            if (service.equalsIgnoreCase("guestProduct")) {
+                String sortBy = request.getParameter("sortBy");
+                String categoryId = request.getParameter("categoryId");
+
+                String sql = "SELECT * FROM Product WHERE 1=1";
+
+                if (categoryId != null && !categoryId.trim().isEmpty()) {
+                    sql += " AND CategoryId = " + Integer.parseInt(categoryId);
+                }
+
+                if ("priceAsc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY Price ASC";
+                } else if ("priceDesc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY Price DESC";
+                } else if ("nameAsc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY ProductName ASC";
+                } else if ("nameDesc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY ProductName DESC";
+                }
+
+                System.out.println("Executing SQL: " + sql);
+
+                Vector<Product> productList = dao.getProduct(sql);
+                Vector<Category> categoryList = dao.getCategories(); // Lấy danh mục riêng
+
+                request.setAttribute("data", productList);
+                request.setAttribute("categoryList", categoryList); // Gửi danh mục đến JSP
+                request.setAttribute("selectedCategory", categoryId);
+                RequestDispatcher dispath = request.getRequestDispatcher("/guest/display/guestProduct.jsp");
+                dispath.forward(request, response);
+            }
+
         }
     }
 
