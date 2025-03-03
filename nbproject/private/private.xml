@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+<<<<<<< HEAD
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject_master/src/java/model/DAOProduct.java</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject_master/src/java/controller/ProductController.java</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject_master/web/guest/display/guestProduct.jsp</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject_master/src/java/entity/Category.java</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject_master/web/index.html</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject_master/src/java/model/DAOCategory.java</file>
+=======
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/web/login-form-06/scss/style.scss</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/web/index.html</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/web/login-form-06/css/style%20copy.css</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/web/login-form-06/css/style.css</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/src/java/controller/ProductController.java</file>
+            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/web/login-form-06/main.html</file>
+>>>>>>> 88d94e5 (add template loginform)
+        </group>
+    </open-files>
+</project-private>
