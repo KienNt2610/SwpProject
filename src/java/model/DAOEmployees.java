@@ -17,44 +17,14 @@ import java.util.logging.Logger;
  *
  * @author Kien
  */
-public class DAOEmployees extends DBCConnection{
+public class DAOEmployees extends DBCConnection {
+
     public int insertEmployees(Employees employees) {
         int n = 0;
         String sql = "INSERT INTO [dbo].[Employees]\n"
-                + "           ([EmployeeName]\n"
-                + "           ,[EmpBirthDate]\n"
-                + "           ,[PhoneNumber]\n"
-                + "           ,[Email]\n"
-                + "           ,[EmpGender]\n"
-                + "           ,[RoleId])\n"
-                + "     VALUES\n"
-                + "           ('" + employees.getEmployeeName() + "',"
-                + "'" + new java.sql.Date(employees.getEmpBirthDate().getTime()) + "',"
-                + "'" + employees.getPhoneNumber() + "',"
-                + "'" + employees.getEmail() + "',"
-                + "'" + employees.getEmpGender() + "',"
-                + employees.getRoleId() + ")";
-        System.out.println(sql);
-        try {
-            Statement state = conn.createStatement();
-            n = state.executeUpdate(sql);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOEmployees.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return n;
-    }
-
-    public int addEmployees(Employees employees) {
-        int n = 0;
-        String sql = "INSERT INTO [dbo].[Employees]\n"
-                + "           ([EmployeeName]\n"
-                + "           ,[EmpBirthDate]\n"
-                + "           ,[PhoneNumber]\n"
-                + "           ,[Email]\n"
-                + "           ,[EmpGender]\n"
-                + "           ,[RoleId])\n"
-                + "     VALUES\n"
-                + "           (?,?,?,?,?,?);";
+                + "([EmployeeName], [EmpBirthDate], [PhoneNumber], [Email], [EmpGender], [RoleId], [UserName], [Password])\n"
+                + "VALUES\n"
+                + "(?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, employees.getEmployeeName());
@@ -63,6 +33,33 @@ public class DAOEmployees extends DBCConnection{
             pre.setString(4, employees.getEmail());
             pre.setString(5, employees.getEmpGender());
             pre.setInt(6, employees.getRoleId());
+            pre.setString(7, employees.getUserName());  // Added UserName
+            pre.setString(8, employees.getPassword());  // Added Password
+            n = pre.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
+    }
+
+    public int addEmployees(Employees employees) {
+        int n = 0;
+        String sql = "INSERT INTO [dbo].[Employees] "
+                + "([EmployeeName], [EmpBirthDate], [PhoneNumber], [Email], [EmpGender], [RoleId], [UserName], [Password]) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        try {
+            // Tạo câu lệnh PreparedStatement để thực thi câu lệnh SQL
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, employees.getEmployeeName());
+            pre.setDate(2, new java.sql.Date(employees.getEmpBirthDate().getTime()));
+            pre.setString(3, employees.getPhoneNumber());
+            pre.setString(4, employees.getEmail());
+            pre.setString(5, employees.getEmpGender());
+            pre.setInt(6, employees.getRoleId());
+            pre.setString(7, employees.getUserName()); // Thêm UserName
+            pre.setString(8, employees.getPassword()); // Thêm Password
+
+            // Thực thi câu lệnh
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -85,8 +82,8 @@ public class DAOEmployees extends DBCConnection{
     public int updateEmployees(Employees employees) {
         int n = 0;
         String sql = "UPDATE [dbo].[Employees]\n"
-                + "   SET [EmployeeName] = ?, [EmpBirthDate] = ?, [PhoneNumber] = ?, [Email] = ?, [EmpGender] = ?, [RoleId] = ?\n"
-                + " WHERE EmployeeId=?";
+                + "SET [EmployeeName] = ?, [EmpBirthDate] = ?, [PhoneNumber] = ?, [Email] = ?, [EmpGender] = ?, [RoleId] = ?, [UserName] = ?, [Password] = ?\n"
+                + "WHERE [EmployeeId] = ?;";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, employees.getEmployeeName());
@@ -95,7 +92,9 @@ public class DAOEmployees extends DBCConnection{
             pre.setString(4, employees.getEmail());
             pre.setString(5, employees.getEmpGender());
             pre.setInt(6, employees.getRoleId());
-            pre.setInt(7, employees.getEmployeeId());
+            pre.setString(7, employees.getUserName());  // Added UserName
+            pre.setString(8, employees.getPassword());  // Added Password
+            pre.setInt(9, employees.getEmployeeId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -117,7 +116,10 @@ public class DAOEmployees extends DBCConnection{
                 String Email = rs.getString("Email");
                 String EmpGender = rs.getString("EmpGender");
                 int RoleId = rs.getInt("RoleId");
-                Employees employees = new Employees(EmployeeId, EmployeeName, EmpBirthDate, PhoneNumber, Email, EmpGender, RoleId);
+                String UserName = rs.getString("UserName");  // Added UserName
+                String Password = rs.getString("Password");  // Added Password
+
+                Employees employees = new Employees(EmployeeId, EmployeeName, EmpBirthDate, PhoneNumber, Email, EmpGender, RoleId, UserName, Password);
                 vector.add(employees);
             }
         } catch (SQLException ex) {

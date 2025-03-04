@@ -4,11 +4,14 @@
  */
 package entity;
 
+import java.util.Date;
+
 /**
  *
  * @author Kien
  */
 public class Employees {
+
     private int EmployeeId;
     private String EmployeeName;
     private java.util.Date EmpBirthDate;
@@ -16,20 +19,24 @@ public class Employees {
     private String Email;
     private String EmpGender;
     private int RoleId;
+    private String UserName;
+    private String Password;
 
     public Employees() {
     }
 
-    public Employees(String EmployeeName, java.util.Date EmpBirthDate, String PhoneNumber, String Email, String EmpGender, int RoleId) {
+    public Employees(String EmployeeName, Date EmpBirthDate, String PhoneNumber, String Email, String EmpGender, int RoleId, String UserName, String Password) {
         this.EmployeeName = EmployeeName;
         this.EmpBirthDate = EmpBirthDate;
         this.PhoneNumber = PhoneNumber;
         this.Email = Email;
         this.EmpGender = EmpGender;
         this.RoleId = RoleId;
+        this.UserName = UserName;
+        this.Password = Password;
     }
 
-    public Employees(int EmployeeId, String EmployeeName, java.util.Date EmpBirthDate, String PhoneNumber, String Email, String EmpGender, int RoleId) {
+    public Employees(int EmployeeId, String EmployeeName, Date EmpBirthDate, String PhoneNumber, String Email, String EmpGender, int RoleId, String UserName, String Password) {
         this.EmployeeId = EmployeeId;
         this.EmployeeName = EmployeeName;
         this.EmpBirthDate = EmpBirthDate;
@@ -37,6 +44,8 @@ public class Employees {
         this.Email = Email;
         this.EmpGender = EmpGender;
         this.RoleId = RoleId;
+        this.UserName = UserName;
+        this.Password = Password;
     }
 
     public int getEmployeeId() {
@@ -95,8 +104,26 @@ public class Employees {
         this.RoleId = RoleId;
     }
 
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
     @Override
     public String toString() {
-        return "Employees{" + "EmployeeId=" + EmployeeId + ", EmployeeName=" + EmployeeName + ", EmpBirthDate=" + EmpBirthDate + ", PhoneNumber=" + PhoneNumber + ", Email=" + Email + ", EmpGender=" + EmpGender + ", RoleId=" + RoleId + '}';
+        return "Employees{" + "EmployeeId=" + EmployeeId + ", EmployeeName=" + EmployeeName + ", EmpBirthDate=" + EmpBirthDate + ", PhoneNumber=" + PhoneNumber + ", Email=" + Email + ", EmpGender=" + EmpGender + ", RoleId=" + RoleId + ", UserName=" + UserName + ", Password=" + Password + '}';
     }
+    
+
 }
