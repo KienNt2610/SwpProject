@@ -160,7 +160,7 @@ public class ProductController extends HttpServlet {
                 String sql = "SELECT * FROM Product WHERE 1=1";
 
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
-                    sql += " AND CategoryId = " + Integer.parseInt(categoryId);
+                    sql += " AND CategoryId = " + Integer.parseInt(categoryId); // Lọc theo categoryId
                 }
 
                 if ("priceAsc".equalsIgnoreCase(sortBy)) {
@@ -173,10 +173,10 @@ public class ProductController extends HttpServlet {
                     sql += " ORDER BY ProductName DESC";
                 }
 
-                System.out.println("Executing SQL: " + sql);
+                System.out.println("Executing SQL: " + sql); // Kiểm tra SQL
 
                 Vector<Product> productList = dao.getProduct(sql);
-                Vector<Category> categoryList = dao.getCategories(); // Lấy danh mục riêng
+                Vector<Category> categoryList = dao.getCategories(); // Lấy danh mục
 
                 request.setAttribute("data", productList);
                 request.setAttribute("categoryList", categoryList); // Gửi danh mục đến JSP
@@ -184,7 +184,6 @@ public class ProductController extends HttpServlet {
                 RequestDispatcher dispath = request.getRequestDispatcher("/guest/display/guestProduct.jsp");
                 dispath.forward(request, response);
             }
-            
 
         }
     }
