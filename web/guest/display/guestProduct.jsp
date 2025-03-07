@@ -86,8 +86,9 @@
                     }
         %>
         <tr>
-            <td><%= product.getProductName() %></td>
-            <td><%= categoryName %></td> <%-- Hiển thị CategoryName thay vì CategoryId --%>
+            <!-- Tạo liên kết đến trang chi tiết sản phẩm -->
+           <td><a href="ProductDetailURL?service=guestProductDetail&productId=<%= product.getProductId() %>"><%= product.getProductName() %></a></td>
+            <td><%= categoryName %></td>
             <td><%= product.getPrice() %> đ</td>
         </tr>
         <%

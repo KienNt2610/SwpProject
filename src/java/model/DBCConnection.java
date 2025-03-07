@@ -37,7 +37,7 @@ public class DBCConnection {
     }
 
     public DBCConnection() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=SWP_Project", "sa", "123456"); // Update these parameters
+        this("jdbc:sqlserver://DESKTOP-1CRMVJM\\MSSQLSERVER01:1433;databaseName=SWP_Project", "sa", "123456"); // Update these parameters
     }
 
     public ResultSet getData(String sql) {
