@@ -464,6 +464,17 @@ a:focus {
         color: $black;
       }
     }
+    
+    .option3 {
+      background-color: $black;
+      border: 1px solid $black;
+      color: $white;
+
+      &:hover {
+        background-color: transparent;
+        color: $black;
+      }
+    }
 
   }
 

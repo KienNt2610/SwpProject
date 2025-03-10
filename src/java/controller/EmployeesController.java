@@ -34,7 +34,7 @@ public class EmployeesController extends HttpServlet {
                 String endDate = request.getParameter("endDate");
 
                 // Khởi tạo câu lệnh SQL với điều kiện cơ bản
-                String sql = "SELECT * FROM Employees WHERE 1=1"; 
+                String sql = "SELECT * FROM Employees WHERE 1=1";
 
                 // Thêm điều kiện lọc theo tên nhân viên
                 if (name != null && !name.trim().isEmpty()) {
