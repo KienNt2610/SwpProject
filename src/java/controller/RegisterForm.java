@@ -40,9 +40,28 @@ public class RegisterForm extends HttpServlet {
             return;
         }
 
+        // Kiểm tra customerName không bị null hoặc trống
+        if (customerName == null || customerName.trim().isEmpty()) {
+            try (PrintWriter out = response.getWriter()) {
+                out.println("<html><body>");
+                out.println("<h3>Customer name cannot be empty!</h3>");
+                out.println("<a href='register.html'>Go back</a>");
+                out.println("</body></html>");
+            }
+            return;
+        }
+
         // Sử dụng DBCConnection để kết nối và xử lý đăng ký
         try (PrintWriter out = response.getWriter()) {
-            DBCConnection dbConnection = new DBCConnection("jdbc:sqlserver://DESKTOP-1CRMVJM\\MSSQLSERVER01:1433;databaseName=SWP_Project", "sa", "123456"); // Kết nối với cơ sở dữ liệu
+            DBCConnection dbConnection = new DBCConnection(); // Dùng constructor mặc định
+
+            // Kiểm tra kết nối
+            if (dbConnection.conn == null) {
+                out.println("<html><body>");
+                out.println("<h3>Unable to connect to the database!</h3>");
+                out.println("</body></html>");
+                return; // Dừng lại nếu không thể kết nối
+            }
 
             // Kết nối đến cơ sở dữ liệu và kiểm tra nếu username hoặc email đã tồn tại
             String checkSql = "SELECT * FROM Customer WHERE Username = ? OR Email = ?";
@@ -78,10 +97,8 @@ public class RegisterForm extends HttpServlet {
                         int rowsAffected = insertStmt.executeUpdate();
 
                         if (rowsAffected > 0) {
-                            out.println("<html><body>");
-                            out.println("<h3>Registration successful!</h3>");
-                            out.println("<a href='login_index.html'>Go to Login</a>");
-                            out.println("</body></html>");
+                            // Đăng ký thành công, chuyển hướng về trang login
+                            response.sendRedirect("login_index.html"); // Redirect to the login page
                         } else {
                             out.println("<html><body>");
                             out.println("<h3>Registration failed, please try again!</h3>");
@@ -93,6 +110,7 @@ public class RegisterForm extends HttpServlet {
                 ex.printStackTrace();
                 out.println("<html><body>");
                 out.println("<h3>Database connection error!</h3>");
+                out.println("<pre>" + ex.getMessage() + "</pre>"); // In thông báo chi tiết lỗi
                 out.println("</body></html>");
             }
         }
