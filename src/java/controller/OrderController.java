@@ -57,7 +57,7 @@ public class OrderController extends HttpServlet {
                 Vector<Order> vector = dao.getOrder(sql);
 
                 // Chuyển dữ liệu đến trang hiển thị
-                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayOrder.jsp");
+                RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayOrder.jsp");
                 request.setAttribute("data", vector);
                 request.setAttribute("title", "Filtered Order List");
                 dispath.forward(request, response);

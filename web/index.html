@@ -1,29 +1,81 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
-<html>
+<html lang="en">
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Menu Page</title>
+        <style>
+            /* Basic styling */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Header styles */
+            header {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            /* Footer styles */
+            footer {
+                background-color: #333;
+                color: white;
+                text-align: center;
+                padding: 10px 0;
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+            }
+
+            /* Main content styling */
+            .menu {
+                margin: 20px;
+            }
+
+            .menu a {
+                display: block;
+                text-decoration: none;
+                color: #333;
+                padding: 10px;
+                margin: 5px 0;
+                background-color: #f4f4f4;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            .menu a:hover {
+                background-color: #ddd;
+            }
+        </style>
     </head>
     <body>
-        <p><a href="ProductURL?service=listAllProduct">Product controller</a>
-        <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a>
-        <p><a href="OrderURL?service=listAllOrder">Order controller</a>
-        <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a>
-        <p><a href="CartURL?service=listAllCart">Cart controller</a>
-        <p><a href="CartDetailURL?service=listAllCartDetail">CartDetail controller</a>
-        <p><a href="CategoryURL?service=listAllCategory">Category controller</a>
-        <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a>
-        <p><a href="EmployeesURL?service=listAllEmployees">Employees controller</a>
-        <p><a href="RoleURL?service=listAllRole">Role controller</a>
-        <p><a href="ProductURL?service=guestProduct">View Products (Guest)</a>
-             
-             
 
+        <!-- Header -->
+        <header>
+            <h1>Welcome to the Staff Menu</h1>
+        </header>
+
+        <!-- Main content with links (Menu) -->
+        <div class="menu">
+            <p><a href="ProductURL?service=listAllProduct">Product controller</a></p>
+            <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a></p>
+            <p><a href="OrderURL?service=listAllOrder">Order controller</a></p>
+            <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a></p>
+            <p><a href="CartURL?service=listAllCart">Cart controller</a></p>
+            <p><a href="CartDetailURL?service=listAllCartDetail">CartDetail controller</a></p>
+            <p><a href="CategoryURL?service=listAllCategory">Category controller</a></p>
+            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a></p>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 SPORTGEARSHOP</p>
+        </footer>
 
     </body>
 </html>
