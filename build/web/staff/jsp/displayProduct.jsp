@@ -49,6 +49,7 @@
                         </p>
                     </form>
 
+
                     <form action="ProductURL" method="GET">
                         <input type="hidden" name="service" value="sort">
                         <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
@@ -74,6 +75,8 @@
                             <input type="submit" value="Filter">
                         </p>
                     </form>
+                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Insert New Product</a></p>
+
 
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
@@ -116,6 +119,76 @@
                     <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Insert New Product</a></p>
                 </div>
             </div>  
-        </div>   
+        </div>  
+                               <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="full">
+                            <div class="logo_footer">
+                                <a href="#"><img width="100" src="images/logo.png" alt="#" /></a>
+                            </div>
+                            <div class="information_f">
+                                <p><strong>Địa chỉ:</strong> TT02-01 MonCity, Ngõ 4 Hàm Nghi, Mỹ Đình 2, Nam Từ Liêm Hanoi, Vietnam</p>
+                                <p><strong>Số điện thoại:</strong> +84 833 617 083</p>
+                                <p><strong>Email:</strong> SportGear@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="widget_menu">
+                                            <h3>Thương hiệu</h3>
+                                            <ul>
+                                                <li><a href="#">Trang chủ</a></li>
+                                                <li><a href="#">Giới thiệu</a></li>
+                                                <li><a href="#">Tin tức</a></li>
+                                                <li><a href="#">Tuyển dụng</a></li>
+                                                <li><a href="#">Hệ thống cửa hàng</a></li>
+                                                <li><a href="#">Liên hệ</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="widget_menu">
+                                            <h3>Hỗ trợ</h3>
+                                            <ul>
+                                                <li><a href="#">Hỏi đáp</a></li>
+                                                <li><a href="#">Chính sách KHTT</a></li>
+                                                <li><a href="#">Chính sách vận chuyển</a></li>
+                                                <li><a href="#">Gợi ý tìm size</a></li>
+                                                <li><a href="#">Kiểm tra đơn hàng</a></li>
+                                                <li><a href="#">Chính sách bảo mật KH</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>     
+                            <div class="col-md-5">
+                                <div class="widget_menu">
+                                    <h3>Đăng ký ngay</h3>
+                                    <div class="information_f">
+                                        <p>Đăng ký ngay nào</p>
+                                    </div>
+                                    <div class="form_sub">
+                                        <form>
+                                            <fieldset>
+                                                <div class="field">
+                                                    <input type="email" placeholder="Enter Your Mail" name="email" />
+                                                    <input type="submit" value="Subscribe" />
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

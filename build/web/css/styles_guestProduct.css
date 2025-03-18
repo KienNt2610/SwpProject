@@ -121,11 +121,25 @@ body {
     color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
+/* CSS cho vị trí của dropdown "Sản phẩm hot" */
+.sidebar form {
+    margin-bottom: 15px;
+}
+
+.main-content .col-12.text-right {
+    text-align: right;
+    margin-top: 10px;
+}
+
 
 .sidebar label, .sidebar select, .sidebar button {
     color: white;
     font-size: 14px;
 }
+.text-right {
+    text-align: right;
+}
+
 
 .sidebar select, .sidebar button {
     width: 100%;

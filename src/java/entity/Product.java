@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
+
+import java.util.Date;
 
 /**
  *
@@ -10,95 +8,139 @@ package entity;
  */
 public class Product {
 
-    private int ProductId;
-    private String ProductName;
-    private int CategoryId;
-    private double Price;
-    private int Quantity;
-    private String Description;
-    private boolean Discontinued;
+    private int productId;
+    private String productName;
+    private int categoryId;
+    private double price;
+    private int quantity;
+    private String description;
+    private boolean discontinued;  // Discontinued is of type bit (boolean)
+    private boolean isHot;         // IsHot is of type bit (boolean)
+    private int soldQuantity;
+    private Date createTime;
+    private double salePrice;
 
     public Product() {
     }
 
-    public Product(String ProductName, int CategoryId, double Price, int Quantity, String Description, boolean Discontinued) {
-        this.ProductName = ProductName;
-        this.CategoryId = CategoryId;
-        this.Price = Price;
-        this.Quantity = Quantity;
-        this.Description = Description;
-        this.Discontinued = Discontinued;
+    public Product(String productName, int categoryId, double price, int quantity, String description, boolean discontinued, boolean isHot, int soldQuantity, Date createTime, double salePrice) {
+        this.productName = productName;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+        this.discontinued = discontinued;
+        this.isHot = isHot;
+        this.soldQuantity = soldQuantity;
+        this.createTime = createTime;
+        this.salePrice = salePrice;
     }
 
-    public Product(int ProductId, String ProductName, int CategoryId, double Price, int Quantity, String Description, boolean Discontinued) {
-        this.ProductId = ProductId;
-        this.ProductName = ProductName;
-        this.CategoryId = CategoryId;
-        this.Price = Price;
-        this.Quantity = Quantity;
-        this.Description = Description;
-        this.Discontinued = Discontinued;
+    public Product(int productId, String productName, int categoryId, double price, int quantity, String description, boolean discontinued, boolean isHot, int soldQuantity, Date createTime, double salePrice) {
+        this.productId = productId;
+        this.productName = productName;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+        this.discontinued = discontinued;
+        this.isHot = isHot;
+        this.soldQuantity = soldQuantity;
+        this.createTime = createTime;
+        this.salePrice = salePrice;
     }
 
     public int getProductId() {
-        return ProductId;
+        return productId;
     }
 
-    public void setProductId(int ProductId) {
-        this.ProductId = ProductId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
-    public void setProductName(String ProductName) {
-        this.ProductName = ProductName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getCategoryId() {
-        return CategoryId;
+        return categoryId;
     }
 
-    public void setCategoryId(int CategoryId) {
-        this.CategoryId = CategoryId;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
-    public void setPrice(double Price) {
-        this.Price = Price;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
-    public void setQuantity(int Quantity) {
-        this.Quantity = Quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public boolean isDiscontinued() {
-        return Discontinued;
+        return discontinued;
     }
 
-    public void setDiscontinued(boolean Discontinued) {
-        this.Discontinued = Discontinued;
+    public void setDiscontinued(boolean discontinued) {
+        this.discontinued = discontinued;
+    }
+
+    public boolean isHot() {
+        return isHot;
+    }
+
+    public void setHot(boolean isHot) {
+        this.isHot = isHot;
+    }
+
+    public int getSoldQuantity() {
+        return soldQuantity;
+    }
+
+    public void setSoldQuantity(int soldQuantity) {
+        this.soldQuantity = soldQuantity;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "ProductId=" + ProductId + ", ProductName=" + ProductName + ", CategoryId=" + CategoryId + ", Price=" + Price + ", Quantity=" + Quantity + ", Description=" + Description + ", Discontinued=" + Discontinued + '}';
+        return "Product{" + "productId=" + productId + ", productName=" + productName + ", categoryId=" + categoryId + ", price=" + price + ", quantity=" + quantity + ", description=" + description + ", discontinued=" + discontinued + ", isHot=" + isHot + ", soldQuantity=" + soldQuantity + ", createTime=" + createTime + ", salePrice=" + salePrice + '}';
     }
-
+    
 }

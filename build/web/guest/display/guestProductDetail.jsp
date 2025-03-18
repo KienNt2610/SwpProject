@@ -58,7 +58,7 @@
                             <div class="product_description">
                                 <nav>
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index_1_1.html">Trang chủ</a></li>
+                                        <li class="breadcrumb-item"><a href="index_1.html">Trang chủ</a></li>
                                         <li class="breadcrumb-item"><a href="ProductURL?service=guestProduct">Tất cả sản phẩm</a></li>
                                         <li class="breadcrumb-item active">${categoryName}</li>
                                     </ol>

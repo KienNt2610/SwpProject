@@ -96,13 +96,21 @@ public class ProductController extends HttpServlet {
                     int Quantity = Integer.parseInt(request.getParameter("Quantity"));
                     String Description = request.getParameter("Description");
                     String Discontinued = request.getParameter("Discontinued");
-                    // check data
+                    double SalePrice = Double.parseDouble(request.getParameter("SalePrice"));
+                    int SoldQuantity = Integer.parseInt(request.getParameter("SoldQuantity"));
+                    String CreateTimeStr = request.getParameter("CreateTime");
+                    java.sql.Timestamp CreateTime = null;
+                    if (CreateTimeStr != null && !CreateTimeStr.isEmpty()) {
+                        CreateTime = java.sql.Timestamp.valueOf(CreateTimeStr);
+                    }
+
                     if (ProductName.equals("")) {
                         out.print("Product name is not empty");
                         return;
                     }
-                    boolean discontinued = (Integer.parseInt(Discontinued) == 1 ? true : false);
-                    Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, discontinued);
+
+                    boolean discontinued = (Integer.parseInt(Discontinued) == 1);
+                    Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, discontinued, false, SoldQuantity, CreateTime, SalePrice);
                     int n = dao.updateProduct(product);
                     response.sendRedirect("ProductURL?service=listAllProduct");
                 }
@@ -119,13 +127,21 @@ public class ProductController extends HttpServlet {
                     int Quantity = Integer.parseInt(request.getParameter("Quantity"));
                     String Description = request.getParameter("Description");
                     String Discontinued = request.getParameter("Discontinued");
-                    // check data
+                    double SalePrice = Double.parseDouble(request.getParameter("SalePrice"));
+                    int SoldQuantity = Integer.parseInt(request.getParameter("SoldQuantity"));
+                    String CreateTimeStr = request.getParameter("CreateTime");
+                    java.sql.Timestamp CreateTime = null;
+                    if (CreateTimeStr != null && !CreateTimeStr.isEmpty()) {
+                        CreateTime = java.sql.Timestamp.valueOf(CreateTimeStr);
+                    }
+
                     if (ProductName.equals("")) {
                         out.print("Product name is not empty");
                         return;
                     }
-                    boolean discontinued = (Integer.parseInt(Discontinued) == 1 ? true : false);
-                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, discontinued);
+
+                    boolean discontinued = (Integer.parseInt(Discontinued) == 1);
+                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, discontinued, false, SoldQuantity, CreateTime, SalePrice);
                     int n = dao.addProduct(product);
                     response.sendRedirect("ProductURL?service=listAllProduct");
                 }
@@ -153,16 +169,26 @@ public class ProductController extends HttpServlet {
                 dispath.forward(request, response);
             }
 
+            // Guest product list
             if (service.equalsIgnoreCase("guestProduct")) {
                 String sortBy = request.getParameter("sortBy");
                 String categoryId = request.getParameter("categoryId");
+                String isHot = request.getParameter("isHot");  // Lấy giá trị isHot từ request
 
+                // Bắt đầu câu lệnh SQL để lấy tất cả các sản phẩm
                 String sql = "SELECT * FROM Product WHERE 1=1";
 
+                // Kiểm tra nếu tham số lọc "isHot" được đặt, thì chỉ lấy sản phẩm hot
+                if ("1".equals(isHot)) {  // Kiểm tra nếu người dùng đã chọn lọc sản phẩm Hot
+                    sql += " AND IsHot = 1"; // Lọc theo sản phẩm hot
+                }
+
+                // Lọc theo categoryId nếu có
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
                     sql += " AND CategoryId = " + Integer.parseInt(categoryId); // Lọc theo categoryId
                 }
 
+                // Logic sắp xếp
                 if ("priceAsc".equalsIgnoreCase(sortBy)) {
                     sql += " ORDER BY Price ASC";
                 } else if ("priceDesc".equalsIgnoreCase(sortBy)) {
@@ -173,14 +199,17 @@ public class ProductController extends HttpServlet {
                     sql += " ORDER BY ProductName DESC";
                 }
 
-                System.out.println("Executing SQL: " + sql); // Kiểm tra SQL
-
+                // Thực hiện câu lệnh SQL
                 Vector<Product> productList = dao.getProduct(sql);
-                Vector<Category> categoryList = dao.getCategories(); // Lấy danh mục
+                Vector<Category> categoryList = dao.getCategories(); // Lấy danh mục cho việc lọc
 
+                // Truyền dữ liệu vào request
                 request.setAttribute("data", productList);
-                request.setAttribute("categoryList", categoryList); // Gửi danh mục đến JSP
+                request.setAttribute("categoryList", categoryList);
                 request.setAttribute("selectedCategory", categoryId);
+                request.setAttribute("isHot", isHot);  // Truyền giá trị lọc isHot vào JSP
+
+                // Chuyển đến trang JSP
                 RequestDispatcher dispath = request.getRequestDispatcher("/guest/display/guestProduct.jsp");
                 dispath.forward(request, response);
             }

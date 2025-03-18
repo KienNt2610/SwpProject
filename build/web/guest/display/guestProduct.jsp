@@ -75,32 +75,29 @@
         <div class="main-content">
             <div class="container py-5">
                 <div class="row justify-content-center mb-3">
+                    <div class="col-12 text-right mb-3">
+                        <form method="GET" action="ProductURL">
+                            <input type="hidden" name="service" value="guestProduct">
+                            <label for="isHot">Sản phẩm hot:</label>
+                            <select name="isHot" id="isHot">
+                                <option value="">Tất cả</option>
+                                <option value="1" <%= "1".equals(request.getAttribute("isHot")) ? "selected" : "" %>>Sản phẩm hot</option>
+                            </select>
+                            <button type="submit">Xác nhận</button>
+
+                        </form>
+                    </div>
+
                     <%
                         if (productList != null && !productList.isEmpty()) {
                             for (Product product : productList) {
-                                String categoryName = "Not Available"; // Giá trị mặc định nếu không tìm thấy danh mục
-
-                                if (categoryList != null) {
-                                    for (Category category : categoryList) {
-                                        if (category.getCategoryId() == product.getCategoryId()) {
-                                            categoryName = category.getCategoryName();
-                                            break; // Dừng tìm kiếm nếu tìm thấy danh mục
-                                        }
-                                    }
-                                }
                     %>
                     <div class="col-md-12 col-xl-10">
                         <div class="product-card">
                             <div class="row">
                                 <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                                     <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                        <!-- Replaced dynamic image URL with a placeholder image -->
                                         <img src="path/to/your/placeholder-image.jpg" class="w-100" />
-                                        <a href="#!">
-                                            <div class="hover-overlay">
-                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                            </div>
-                                        </a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-6 col-xl-6">
@@ -112,8 +109,12 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                        <span>310</span>
+
+
+
                                     </div>
+                                    <span><%= product.getQuantity() %> sản phẩm có sẵn</span><br>
+                                    <span><%= product.getSoldQuantity() %> sản phẩm đã bán</span>
                                     <div class="mt-1 mb-0 text-muted small">
                                         <span>100% cotton</span>
                                         <span class="text-primary"> • </span>
@@ -123,15 +124,17 @@
                                     </div>
                                     <div class="mb-2 text-muted small">
                                         <span>Thiết kế sáng tạo</span>
-                                        <span class="text-primary"> • </span>
-                                        
-                                
-
                                     </div>
-                                    <!-- Hiển thị Description của sản phẩm -->
+
                                     <p class="text-truncate mb-4 mb-md-0">
-                                        <%= product.getDescription() %> <!-- Description của sản phẩm -->
+                                        <%= product.getDescription() %>
                                     </p>
+
+                                    <% if (product.isHot()) { %>
+                                    <span class="badge bg-danger">Hot</span>
+                                    <% } %>
+
+
                                 </div>
                                 <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                     <div class="d-flex flex-row align-items-center mb-1">
@@ -143,7 +146,6 @@
                                             Xem chi tiết
                                         </a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -159,5 +161,6 @@
                 </div>
             </div>
         </div>
+
     </body>
 </html>

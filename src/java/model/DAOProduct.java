@@ -24,14 +24,21 @@ public class DAOProduct extends DBCConnection {
                 + "           ,[Price]\n"
                 + "           ,[Quantity]\n"
                 + "           ,[Description]\n"
-                + "           ,[Discontinued])\n"
+                + "           ,[Discontinued]\n"
+                + "           ,[SoldQuantity]\n"
+                + "           ,[CreateTime]\n"
+                + "           ,[SalePrice]\n"
+                + "           ,[IsHot])\n" // Thêm trường IsHot
                 + "     VALUES\n"
                 + "           ('" + product.getProductName() + "',"
                 + product.getCategoryId() + ","
                 + product.getPrice() + ","
                 + product.getQuantity() + ",'"
-                + product.getDescription() + "'," + (product.isDiscontinued() == true ? 1 : 0) + ")";
-        System.out.println(sql);
+                + product.getDescription() + "'," + (product.isDiscontinued() ? 1 : 0) + ","
+                + product.getSoldQuantity() + ","
+                + (product.getCreateTime() != null ? "'" + product.getCreateTime() + "'" : "NULL") + ","
+                + product.getSalePrice() + ","
+                + (product.isHot() ? 1 : 0) + ")";  // Thêm giá trị cho IsHot
         try {
             Statement state = conn.createStatement();
             n = state.executeUpdate(sql);
@@ -49,9 +56,13 @@ public class DAOProduct extends DBCConnection {
                 + "           ,[Price]\n"
                 + "           ,[Quantity]\n"
                 + "           ,[Description]\n"
-                + "           ,[Discontinued])\n"
+                + "           ,[Discontinued]\n"
+                + "           ,[SoldQuantity]\n"
+                + "           ,[CreateTime]\n"
+                + "           ,[SalePrice]\n"
+                + "           ,[IsHot])\n" // Thêm trường IsHot
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?);";
+                + "           (?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, product.getProductName());
@@ -60,6 +71,10 @@ public class DAOProduct extends DBCConnection {
             pre.setInt(4, product.getQuantity());
             pre.setString(5, product.getDescription());
             pre.setInt(6, product.isDiscontinued() ? 1 : 0);
+            pre.setInt(7, product.getSoldQuantity());
+            pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
+            pre.setDouble(9, product.getSalePrice());
+            pre.setInt(10, product.isHot() ? 1 : 0);  // Thêm giá trị cho IsHot
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -110,7 +125,7 @@ public class DAOProduct extends DBCConnection {
     public int updateProduct(Product product) {
         int n = 0;
         String sql = "UPDATE [dbo].[Product]\n"
-                + "   SET [ProductName] = ? ,[CategoryId] = ? ,[Price] = ? ,[Quantity] = ? ,[Description] = ? ,[Discontinued] = ?\n"
+                + "   SET [ProductName] = ? ,[CategoryId] = ? ,[Price] = ? ,[Quantity] = ? ,[Description] = ? ,[Discontinued] = ? ,[SoldQuantity] = ? ,[CreateTime] = ? ,[SalePrice] = ? ,[IsHot] = ?\n"
                 + " WHERE ProductId=?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -119,8 +134,12 @@ public class DAOProduct extends DBCConnection {
             pre.setDouble(3, product.getPrice());
             pre.setInt(4, product.getQuantity());
             pre.setString(5, product.getDescription());
-            pre.setInt(6, (product.isDiscontinued() == true ? 1 : 0));
-            pre.setInt(7, product.getProductId());
+            pre.setInt(6, (product.isDiscontinued() ? 1 : 0));
+            pre.setInt(7, product.getSoldQuantity());
+            pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
+            pre.setDouble(9, product.getSalePrice());
+            pre.setInt(10, product.isHot() ? 1 : 0);  // Thêm giá trị cho IsHot
+            pre.setInt(11, product.getProductId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -141,7 +160,12 @@ public class DAOProduct extends DBCConnection {
                 int Quantity = rs.getInt("Quantity");
                 String Description = rs.getString("Description");
                 boolean Discontinued = (rs.getInt("Discontinued") == 1 ? true : false);
-                Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, Discontinued);
+                int SoldQuantity = rs.getInt("SoldQuantity");
+                java.sql.Timestamp createTime = rs.getTimestamp("CreateTime");
+                double SalePrice = rs.getDouble("SalePrice");
+                boolean IsHot = (rs.getInt("IsHot") == 1);  // Lấy giá trị IsHot từ database
+
+                Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, Discontinued, IsHot, SoldQuantity, createTime, SalePrice);
                 vector.add(product);
             }
         } catch (SQLException ex) {
