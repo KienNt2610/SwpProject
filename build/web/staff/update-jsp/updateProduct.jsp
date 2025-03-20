@@ -6,19 +6,30 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Product</title>
+        <script type="text/javascript">
+            // Hàm tính toán SalePrice tự động khi Price thay đổi
+            function updateSalePrice() {
+                var price = document.getElementById("Price").value;
+                if (price > 0) {
+                    // Giảm giá 10% cho SalePrice
+                    var salePrice = price * 0.9;
+                    document.getElementById("SalePrice").value = salePrice.toFixed(2); // Cập nhật SalePrice
+                }
+            }
+        </script>
     </head>
     <%
         Vector<Product> vector = (Vector<Product>) request.getAttribute("vector");
         Product product = vector.get(0);
     %>
     <body>
-        <form action="ProductURL" method="post">
+        <form action="ProductURL" method="post" onsubmit="return updateSalePrice()">
         <input type="hidden" name="service" value="updateProduct">
         <table>
             <caption>Update Product</caption>
             <tr>
                <td><label for="ProductId">ProductId</label></td>
-               <td><input type="number" name="ProductId" id="ProductId" value="<%= product.getProductId() %>"></td>
+               <td><input type="number" name="ProductId" id="ProductId" value="<%= product.getProductId() %>" readonly></td>
             </tr>
             <tr>
                 <td><label for="ProductName">ProductName</label></td>
@@ -30,7 +41,11 @@
              </tr>
              <tr>
                 <td><label for="Price">Price</label></td>
-                <td><input type="number" name="Price" id="Price" value="<%= product.getPrice() %>"></td>
+                <td><input type="number" name="Price" id="Price" value="<%= product.getPrice() %>" onchange="updateSalePrice()"></td>
+             </tr>
+             <tr>
+                <td><label for="SalePrice">Sale Price</label></td>
+                <td><input type="text" name="SalePrice" id="SalePrice" value="<%= product.getSalePrice() %>" readonly></td>
              </tr>
              <tr>
                 <td><label for="Quantity">Quantity</label></td>
@@ -43,12 +58,12 @@
              <tr>
                 <td><label for="Discontinued">Discontinued</label></td>
                 <td>
-                    <input type="radio" name="Discontinued" id="Discontinued" value="0" <%= product.isDiscontinued() == true ? "checked" : "" %>> Discontinued
-                    <input type="radio" name="Discontinued" id="Discontinued" value="1" <%= product.isDiscontinued() == false ? "checked" : "" %>> Continued
+                    <input type="radio" name="Discontinued" value="1" <%= product.isDiscontinued() ? "checked" : "" %>> Continued
+                    <input type="radio" name="Discontinued" value="0" <%= !product.isDiscontinued() ? "checked" : "" %>> Discontinued
                 </td>
              </tr>
              <tr>
-                <td><input type="submit" value="updateProduct" name="submit"></td>
+                <td><input type="submit" value="Update Product" name="submit"></td>
                 <td><input type="reset" value="Clear"></td>
             </tr>
         </table>

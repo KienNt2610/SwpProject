@@ -30,6 +30,19 @@
         <title>Guest Product List</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="css/styles_guestProduct.css"> <!-- Đảm bảo đường dẫn đúng -->
+        <style>
+            .sale-price {
+                color: #e74c3c;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+
+            .original-price {
+                text-decoration: line-through;
+                color: #7f8c8d;
+                font-size: 1em;
+            }
+        </style>
     </head>
     <body>
         <h2 class="text-center">Tất cả sản phẩm</h2>
@@ -84,7 +97,6 @@
                                 <option value="1" <%= "1".equals(request.getAttribute("isHot")) ? "selected" : "" %>>Sản phẩm hot</option>
                             </select>
                             <button type="submit">Xác nhận</button>
-
                         </form>
                     </div>
 
@@ -109,12 +121,10 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-
-
-
                                     </div>
                                     <span><%= product.getQuantity() %> sản phẩm có sẵn</span><br>
-                                    <span><%= product.getSoldQuantity() %> sản phẩm đã bán</span>
+                                    <span><%= product.getSoldQuantity() %> sản phẩm đã bán</span><br>
+
                                     <div class="mt-1 mb-0 text-muted small">
                                         <span>100% cotton</span>
                                         <span class="text-primary"> • </span>
@@ -130,15 +140,21 @@
                                         <%= product.getDescription() %>
                                     </p>
 
+
                                     <% if (product.isHot()) { %>
                                     <span class="badge bg-danger">Hot</span>
                                     <% } %>
 
-
                                 </div>
                                 <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                    <div class="d-flex flex-row align-items-center mb-1">
-                                        <h4 class="mb-1 me-1"><%= product.getPrice() %>đ</h4>
+                                    <div class="d-flex flex-row">
+                                        <!-- Hiển thị giá khuyến mãi nếu có -->
+                                        <% if (product.getSalePrice() < product.getPrice()) { %>
+                                        <span class="original-price"><%= product.getPrice() %>đ</span>
+                                        <span class="sale-price"><%= product.getSalePrice() %>đ</span>
+                                        <% } else { %>
+                                        <span class="sale-price"><%= product.getPrice() %>đ</span>
+                                        <% } %>
                                     </div>
                                     <h6 class="text-success">Miễn phí vận chuyển</h6>
                                     <div class="d-flex flex-column mt-4">

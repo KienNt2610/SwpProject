@@ -21,6 +21,10 @@
                     return false;
                 }
 
+                // Tính toán SalePrice tự động (giảm giá 10% cho ví dụ)
+                var salePrice = price * 0.9;  // Giảm giá 10%
+                document.getElementById("SalePrice").value = salePrice.toFixed(2); // Hiển thị SalePrice
+
                 return true;
             }
         </script>
@@ -53,7 +57,11 @@
             </tr>
             <tr>
                 <td><label for="Price">Price</label></td>
-                <td><input type="number" name="Price" id="Price"></td>
+                <td><input type="number" name="Price" id="Price" onchange="validateForm()"></td>
+            </tr>
+            <tr>
+                <td><label for="SalePrice">Sale Price</label></td>
+                <td><input type="text" name="SalePrice" id="SalePrice" readonly></td>
             </tr>
             <tr>
                 <td><label for="Quantity">Quantity</label></td>
@@ -67,10 +75,11 @@
                 <td><label for="Discontinued">Bussiness Status</label></td>
                 <td>
                     <input type="radio" name="Discontinued" id="Discontinued" value="1" checked> Continued
+                    <input type="radio" name="Discontinued" id="Discontinued" value="0"> Discontinued
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" value="insertProduct" name="submit"></td>
+                <td><input type="submit" value="Insert Product" name="submit"></td>
                 <td><input type="reset" value="Clear"></td>
             </tr>
         </table>

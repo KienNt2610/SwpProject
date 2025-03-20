@@ -49,7 +49,6 @@
                         </p>
                     </form>
 
-
                     <form action="ProductURL" method="GET">
                         <input type="hidden" name="service" value="sort">
                         <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
@@ -65,7 +64,6 @@
                         <button type="submit">Sort</button>
                     </form>
 
-
                     <form action="ProductURL" method="get">
                         <input type="hidden" name="service" value="filter">
 
@@ -77,7 +75,6 @@
                     </form>
                     <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Insert New Product</a></p>
 
-
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
@@ -85,9 +82,12 @@
                                 <th>ProductName <i class="fa fa-sort"></i></th>
                                 <th>CategoryId</th>
                                 <th>Price <i class="fa fa-sort"></i></th>
+                                <th>Sale Price</th> <!-- Hiển thị SalePrice -->
+                                <th>Sold Quantity</th> <!-- Hiển thị số lượng đã bán -->
                                 <th>Quantity</th>
                                 <th>Description</th>
                                 <th>Discontinued</th>
+                                <th>Hot</th> <!-- Hiển thị nếu sản phẩm là Hot -->
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -99,9 +99,22 @@
                                 <td><%= product.getProductName() %></td>
                                 <td><%= product.getCategoryId() %></td>
                                 <td><%= product.getPrice() %></td>
+
+                                <!-- Hiển thị Sale Price nếu có -->
+                                <td>
+                                    <%= product.getSalePrice() > 0 ? product.getSalePrice() + "đ" : "N/A" %>
+                                </td>
+
+                                <!-- Hiển thị số lượng đã bán -->
+                                <td><%= product.getSoldQuantity() %></td>
+
                                 <td><%= product.getQuantity() %></td>
                                 <td><%= product.getDescription() %></td>
                                 <td><%= product.isDiscontinued() ? "Yes" : "No" %></td>
+
+                                <!-- Hiển thị nếu sản phẩm là Hot -->
+                                <td><%= product.isHot() ? "Yes" : "No" %></td>
+
                                 <td>
                                     <a href="ProductURL?service=updateProduct&pid=<%= product.getProductId() %>" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                     <a href="ProductURL?service=deleteProduct&pid=<%= product.getProductId() %>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
@@ -110,7 +123,7 @@
                             <% } %>
                             <% } else { %>
                             <tr>
-                                <td colspan="8" class="text-center">No products found.</td>
+                                <td colspan="10" class="text-center">No products found.</td>
                             </tr>
                             <% } %>
                         </tbody>
@@ -120,7 +133,7 @@
                 </div>
             </div>  
         </div>  
-                               <footer>
+        <footer>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
