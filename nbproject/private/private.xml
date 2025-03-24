@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DAORole.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/styles_guestProduct.css</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/bootstrap.css</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/font-awesome.min.css</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/entity/CustomerAddress.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/index_1.html</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/orders.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/jsp/displayGuestOrder.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/entity/Order.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/entity/Customer.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/jsp/displayOrder.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DAOEmployees.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/entity/Employees.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/controller/EmployeesController.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DAOCustomerAddress.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/style.css</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DAOOrder.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/main.html</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DBCConnection.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/entity/Category.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DAOCustomer.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/responsive.css</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/controller/ProductController.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/model/DAOProduct.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/style.css.map</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/src/java/controller/OrderController.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-dungtran/web/css/style.scss</file>
+        </group>
+    </open-files>
+</project-private>
