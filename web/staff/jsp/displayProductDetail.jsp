@@ -2,25 +2,41 @@
 <%@page import="java.util.Vector, entity.ProductDetail"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Product Details List</title>
     </head>
     <body>
+        <h2>Product Details List</h2>
+
+        <!-- Hiển thị thông báo thành công hoặc lỗi -->
         <%
-                 Vector<ProductDetail> vector = (Vector<ProductDetail>) request.getAttribute("data");
-                 String title = (String) request.getAttribute("title");
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+                out.println("<p style='color:red;'>" + errorMessage + "</p>");
+            }
+            
+            String successMessage = (String) request.getAttribute("successMessage");
+            if (successMessage != null) {
+                out.println("<p style='color:green;'>" + successMessage + "</p>");
+            }
         %>
+
+        <!-- Form tìm kiếm theo DetailId -->
         <form action="ProductDetailURL" method="get">
-            <p>Search by DetailId: <input type="number" name="detailId" id="">
+            <p>Search by DetailId: 
+                <input type="number" name="detailId" id="detailId">
                 <input type="submit" value="Search" name="submit">
                 <input type="reset" value="Clear">
             </p>
         </form>
 
-
+        <!-- Link thêm mới ProductDetail -->
         <p><a href="ProductDetailURL?service=insertProductDetail">Insert ProductDetail</a></p>
+
+        <!-- Bảng hiển thị danh sách chi tiết sản phẩm -->
         <table border="1px">
             <caption><%= title %></caption>
             <tr>
@@ -28,10 +44,13 @@
                 <th>ProductId</th>
                 <th>Color</th>
                 <th>Size</th>
-                <th>update</th>
-                <th>delete</th>
+                <th>Update</th>
+                <th>Delete</th>
             </tr>
-            <% for (ProductDetail productDetail : vector) { %>
+            <% 
+                Vector<ProductDetail> vector = (Vector<ProductDetail>) request.getAttribute("data");
+                for (ProductDetail productDetail : vector) { 
+            %>
             <tr>
                 <td><%= productDetail.getDetailId() %></td>
                 <td><%= productDetail.getProductId() %></td>

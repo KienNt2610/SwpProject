@@ -101,6 +101,27 @@ public class DAOProductDetail extends DBCConnection {
         }
         return vector;
     }
+    // Lấy chi tiết sản phẩm theo DetailId
+public ProductDetail getProductDetailById(int detailId) {
+    ProductDetail productDetail = null;
+    String sql = "SELECT * FROM ProductDetail WHERE DetailId = ?";
+    try {
+        PreparedStatement pre = conn.prepareStatement(sql);
+        pre.setInt(1, detailId);
+        ResultSet rs = pre.executeQuery();
+
+        if (rs.next()) {
+            int ProductId = rs.getInt("ProductId");
+            String Color = rs.getString("Color");
+            String Size = rs.getString("Size");
+            productDetail = new ProductDetail(detailId, ProductId, Color, Size);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return productDetail;
+}
+
 
     public static void main(String[] args) {
         DAOProductDetail dao = new DAOProductDetail();

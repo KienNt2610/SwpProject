@@ -8,10 +8,94 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
         <title>Bootstrap Simple Registration Form</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script>
+            // Function to validate the form
+            // Function to validate the form
+            function validateForm() {
+                let isValid = true;
+                // Reset all error messages
+                $(".error").text("");
+
+                // Validate Full Name (customer_name) - Chỉ cho phép chữ và khoảng trắng
+                var customer_name = document.forms["signupForm"]["customer_name"].value;
+                var nameRegex = /^[a-zA-Z\s]+$/;
+                if (customer_name.trim() === "") {
+                    isValid = false;
+                    $("#fullNameError").text("Tên người dùng không được để trống.");
+                } else if (!nameRegex.test(customer_name)) {
+                    isValid = false;
+                    $("#fullNameError").text("Tên người dùng không hợp lệ.");
+                }
+
+                // Validate Username (username) - Chỉ cho phép chữ, số và dấu gạch dưới
+                var username = document.forms["signupForm"]["username"].value;
+                var usernameRegex = /^[a-zA-Z0-9_]+$/;
+                if (username.trim() === "") {
+                    isValid = false;
+                    $("#usernameError").text("Tên đăng nhập không được để trống.");
+                } else if (!usernameRegex.test(username)) {
+                    isValid = false;
+                    $("#usernameError").text("Tên đăng nhập không được có kí tự đặc biệt.");
+                }
+
+                // Validate Password (password) - Phải từ 6 ký tự trở lên và có ít nhất 1 chữ in hoa
+                var password = document.forms["signupForm"]["password"].value;
+                var passwordRegex = /^(?=.*[A-Z]).{6,}$/;
+                if (password.trim() === "") {
+                    isValid = false;
+                    $("#passwordError").text("Mật khẩu không được để trống.");
+                } else if (!passwordRegex.test(password)) {
+                    isValid = false;
+                    $("#passwordError").text("Mật khẩu phải có ít nhất 6 ký tự và chứa ít nhất một chữ cái in hoa.");
+                }
+
+                // Validate Confirm Password (confirm_password)
+                var confirmPassword = document.forms["signupForm"]["confirm_password"].value;
+                if (confirmPassword.trim() === "") {
+                    isValid = false;
+                    $("#confirmPasswordError").text("Xác nhận mật khẩu không được để trống.");
+                } else if (confirmPassword !== password) {
+                    isValid = false;
+                    $("#confirmPasswordError").text("Mật khẩu và xác nhận mật khẩu không khớp.");
+                }
+
+                // Validate Email (email) - Kiểm tra định dạng email chuẩn
+                var email = document.forms["signupForm"]["email"].value;
+                var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (email.trim() === "") {
+                    isValid = false;
+                    $("#emailError").text("Email không được để trống.");
+                } else if (!emailRegex.test(email)) {
+                    isValid = false;
+                    $("#emailError").text("Email không hợp lệ.");
+                }
+
+                // Validate Phone Number (phone) - Phải có đúng 10 chữ số
+                var phone = document.forms["signupForm"]["phone"].value;
+                var phoneRegex = /^[0-9]{10}$/;
+                if (phone.trim() === "") {
+                    isValid = false;
+                    $("#phoneError").text("Số điện thoại không được để trống.");
+                } else if (!phoneRegex.test(phone)) {
+                    isValid = false;
+                    $("#phoneError").text("Số điện thoại không hợp lệ.");
+                }
+
+                // Validate the Terms Checkbox
+                var terms = document.forms["signupForm"]["terms"].checked;
+                if (!terms) {
+                    isValid = false;
+                    alert("Bạn phải xác nhận rằng các thông tin trên là chính xác.");
+                }
+
+                return isValid;
+            }
+
+
+        </script>
         <style>
             body {
                 color: #fff;
@@ -72,15 +156,17 @@
             .signup-form .form-group {
                 margin-bottom: 20px;
             }
-            .signup-form input[type="checkbox"] {
-                margin-top: 3px;
+            .signup-form .error {
+                color: red;
+                font-size: 12px;
+                margin-top: 5px;
             }
             .signup-form .btn {
                 font-size: 16px;
                 font-weight: bold;
                 min-width: 140px;
                 outline: none !important;
-                background-color: #FFA500; /* Đổi màu nút thành cam nhạt */
+                background-color: #FFA500;
                 color: white;
                 border: none;
             }
@@ -108,30 +194,34 @@
     </head>
     <body>
         <div class="signup-form">
-            <form action="<c:url value='/RegisterURL'/>" method="POST">
+            <form name="signupForm" action="<c:url value='/RegisterURL'/>" method="POST" onsubmit="return validateForm()">
                 <h2>Đăng ký</h2>
                 <p class="hint-text">Đăng ký tài khoản mới cho bạn ngay bây giờ. Chỉ trong một vài phút.</p>
-                <!-- Adding the previous fields from the JSP -->
 
                 <div class="form-group">
-                    <input type="text" class="form-control" name="customer_name" placeholder="Tên đầy đủ" required="required">
-                </div>
-
-                <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Tên đăng nhập" class="input_field form-control" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required="required">
-                </div>
-                <div class="form-group">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                    <input type="text" class="form-control" name="customer_name" placeholder="Tên đầy đủ">
+                    <span id="fullNameError" class="error"></span>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" name="confirm_password" placeholder="Xác nhận mật khẩu" required="required">
+                    <input type="text" id="username" name="username" placeholder="Tên đăng nhập" class="input_field form-control">
+                    <span id="usernameError" class="error"></span>
                 </div>
 
-                <!-- Adding your specific fields (textbox fields from JSP) -->
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
+                    <span id="passwordError" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Xác nhận mật khẩu">
+                    <span id="confirmPasswordError" class="error"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    <span id="emailError" class="error"></span>
+                </div>
 
                 <div class="form-group">
                     <label for="dob">Ngày sinh:</label>
@@ -149,27 +239,23 @@
                 <div class="form-group">
                     <label for="phone">Số điện thoại:</label>
                     <input type="text" id="phone" name="phone" class="input_field form-control">
+                    <span id="phoneError" class="error"></span>
                 </div>
 
                 <div class="form-group">
-
-                    <!-- Hiding the Status field -->
                     <input type="hidden" id="status" name="status" value="active">
                 </div>
 
-                <!-- Terms acceptance -->
                 <div class="form-group">
                     <label class="form-check-label">
-                        <input type="checkbox" required="required"> Tôi đảm bảo những thông tin trên là chính xác 
+                        <input type="checkbox" name="terms"> Tôi đảm bảo những thông tin trên là chính xác 
                     </label>
                 </div>
 
-                <!-- Submit Button -->
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block">Xác Nhận</button>
                 </div>
             </form>
-           
         </div>
     </body>
 </html>

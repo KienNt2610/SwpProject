@@ -98,7 +98,7 @@ public class RegisterForm extends HttpServlet {
 
                         if (rowsAffected > 0) {
                             // Đăng ký thành công, chuyển hướng về trang login
-                            response.sendRedirect("login_index.html"); // Redirect to the login page
+                            response.sendRedirect("Login.jsp"); // Redirect to the login page
                         } else {
                             out.println("<html><body>");
                             out.println("<h3>Registration failed, please try again!</h3>");
