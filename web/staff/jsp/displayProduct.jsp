@@ -1,9 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector, entity.Product"%>
+<%@page import="java.util.Vector, entity.Product, entity.Category"%>
 
 <%
     Vector<Product> vector = (Vector<Product>) request.getAttribute("data");
     String title = (String) request.getAttribute("title");
+    // Lấy danh sách Category từ request
+    Vector<Category> categoryList = (Vector<Category>) request.getAttribute("categoryList");
+    // Lấy selectedCategoryId từ request (nếu có)
+    String selectedCategoryId = (String) request.getAttribute("selectedCategoryId");
 %>
 
 <!DOCTYPE html>
@@ -15,65 +19,184 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <style>
-            /* Thêm CSS để căn giữa tiêu đề bảng */
-            .table-title {
-                text-align: center;
+            /* Cải thiện giao diện cho các form tìm kiếm và lọc */
+            .sidebar {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px; /* Khoảng cách giữa các form */
+                justify-content: flex-start;
+                margin-bottom: 20px;
             }
+
+            .product-filter-form {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                max-width: 250px; /* Giới hạn chiều rộng của mỗi form */
+            }
+
+            .inline-form {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .inline-form input, .inline-form select {
+                width: 150px; /* Giới hạn chiều rộng của input và select */
+                padding: 5px;
+            }
+
+            .inline-form label {
+                margin-right: 10px;
+            }
+
+            .inline-form button {
+                padding: 5px 15px;
+            }
+
+            /* Điều chỉnh các nút để giao diện mềm mại hơn */
+            .btn-primary {
+                padding: 5px 15px;
+                font-size: 14px;
+                background-color: #007bff;
+                border: none;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+            .btn-success {
+                background-color: #28a745;
+                border: none;
+                border-radius: 4px;
+                padding: 5px 15px;
+                font-size: 14px;
+                transition: background-color 0.3s;
+            }
+
+            .btn-success:hover {
+                background-color: #218838;
+            }
+
+            form {
+                margin-bottom: 20px;
+            }
+
+            label {
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+
+            /* Đảm bảo rằng các form lọc sẽ hiển thị hợp lý trên các màn hình nhỏ */
+            @media screen and (max-width: 768px) {
+                .sidebar {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .inline-form {
+                    width: 100%;
+                    flex-direction: column;
+                }
+
+                .inline-form input, .inline-form select, .inline-form button {
+                    width: 100%; /* Chiếm hết chiều rộng màn hình khi trên thiết bị di động */
+                }
+            }
+
         </style>
-        <script>
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-        </script>
     </head>
     <body>
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container">
+                    <a class="navbar-brand" href="index.html">
+                        <img width="100" src="images/logo.png" alt="SportGear Shop"/>
+                    </a>
+                    <h1>Quản Lý Sản Phẩm</h1>  
+                </nav>
+            </div>
+        </header>
+
         <div class="container-xl">
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-12"><h2><%= title != null ? title : "Product List" %></h2></div>
-                        </div>
+                        <h2><%= title != null ? title : "Product List" %></h2>
                     </div>
 
-                    <!-- Search & Filter Form -->
-                    <form action="ProductURL" method="get">
-                        <p>Search by Name: <input type="text" name="pname" id="">
-                            <input type="submit" value="Search" name="submit">
-                            <input type="reset" value="Clear">
-                        </p>
-                    </form>
+                    <div class="sidebar">
+                        <!-- Tìm kiếm theo tên sản phẩm -->
+                        <form action="ProductURL" method="get" class="product-filter-form inline-form">
+                            <input type="hidden" name="service" value="listAllProduct">
+                            <label for="pname">Search by Name:</label>
+                            <input type="text" name="pname" id="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>" class="form-control">
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </form>
 
-                    <form action="ProductURL" method="GET">
-                        <input type="hidden" name="service" value="sort">
-                        <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
+                        <!-- Lọc theo Category -->
+                        <form method="GET" action="ProductURL" class="product-filter-form inline-form">
+                            <input type="hidden" name="service" value="listAllProduct">
+                            <label for="categoryId">Danh mục:</label>
+                            <select name="categoryId" id="categoryId" class="form-control">
+                                <option value="">Tất cả sản phẩm</option>
+                                <%
+                                    if (categoryList != null) {
+                                        for (Category category : categoryList) {
+                                %>
+                                <option value="<%= category.getCategoryId() %>"
+                                        <%= category.getCategoryId() == Integer.parseInt(selectedCategoryId) ? "selected" : "" %> >
+                                    <%= category.getCategoryName() %>
+                                </option>
+                                <%
+                                        }
+                                    }
+                                %>
+                            </select>
+                            <input type="hidden" name="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </form>
 
-                        <label for="sort">Sort By:</label>
-                        <select name="sortBy" id="sort">
-                            <option value="priceAsc" <%= "priceAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price: Low to High</option>
-                            <option value="priceDesc" <%= "priceDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price: High to Low</option>
-                            <option value="nameAsc" <%= "nameAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Name: A-Z</option>
-                            <option value="nameDesc" <%= "nameDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Name: Z-A</option>
-                        </select>
+                        <!-- Sắp xếp sản phẩm -->
+                        <form method="GET" action="ProductURL" class="product-filter-form inline-form">
+                            <input type="hidden" name="service" value="listAllProduct">
+                            <label for="sortBy">Sắp xếp theo:</label>
+                            <select name="sortBy" id="sortBy" class="form-control">
+                                <option value="">Mặc định</option>
+                                <option value="priceAsc" <%= "priceAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Giá thấp đến cao</option>
+                                <option value="priceDesc" <%= "priceDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Giá cao đến thấp</option>
+                                <option value="nameAsc" <%= "nameAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Tên từ A-Z</option>
+                                <option value="nameDesc" <%= "nameDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Tên từ Z-A</option>
+                            </select>
+                            <input type="hidden" name="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>">
+                            <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
+                            <button type="submit" class="btn btn-primary">Sort</button>
+                        </form>
 
-                        <button type="submit">Sort</button>
-                    </form>
+                        <!-- Filter by Hot Products -->
+                        <form method="GET" action="ProductURL" class="product-filter-form inline-form">
+                            <input type="hidden" name="service" value="listAllProduct">
+                            <label for="isHot">Sản phẩm hot:</label>
+                            <select name="isHot" id="isHot" class="form-control">
+                                <option value="">Tất cả</option>
+                                <option value="1" <%= "1".equals(request.getParameter("isHot")) ? "selected" : "" %>>Sản phẩm hot</option>
+                            </select>
+                            <input type="hidden" name="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>">
+                            <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
+                            <input type="hidden" name="sortBy" value="<%= request.getParameter("sortBy") != null ? request.getParameter("sortBy") : "" %>">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </form>
+                    </div>
+                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success mb-4">Insert New Product</a></p>
 
-                    <form action="ProductURL" method="get">
-                        <input type="hidden" name="service" value="filter">
-
-                        <!-- Filter by CategoryId -->
-                        <p>Category ID:
-                            <input type="text" name="categoryId" value="<%= request.getParameter("categoryId") %>" placeholder="Enter Category ID">
-                            <input type="submit" value="Filter">
-                        </p>
-                    </form>
-                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Insert New Product</a></p>
 
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
@@ -82,12 +205,13 @@
                                 <th>ProductName <i class="fa fa-sort"></i></th>
                                 <th>CategoryId</th>
                                 <th>Price <i class="fa fa-sort"></i></th>
-                                <th>Sale Price</th> <!-- Hiển thị SalePrice -->
-                                <th>Sold Quantity</th> <!-- Hiển thị số lượng đã bán -->
+                                <th>Sale Price</th>
+                                <th>Sold Quantity</th>
                                 <th>Quantity</th>
                                 <th>Description</th>
                                 <th>Discontinued</th>
-                                <th>Hot</th> <!-- Hiển thị nếu sản phẩm là Hot -->
+                                <th>Hot</th>
+                                <th>CreateTime</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -99,22 +223,13 @@
                                 <td><%= product.getProductName() %></td>
                                 <td><%= product.getCategoryId() %></td>
                                 <td><%= product.getPrice() %></td>
-
-                                <!-- Hiển thị Sale Price nếu có -->
-                                <td>
-                                    <%= product.getSalePrice() > 0 ? product.getSalePrice() + "đ" : "N/A" %>
-                                </td>
-
-                                <!-- Hiển thị số lượng đã bán -->
+                                <td><%= product.getSalePrice() > 0 ? product.getSalePrice() + "đ" : "N/A" %></td>
                                 <td><%= product.getSoldQuantity() %></td>
-
                                 <td><%= product.getQuantity() %></td>
                                 <td><%= product.getDescription() %></td>
                                 <td><%= product.isDiscontinued() ? "Yes" : "No" %></td>
-
-                                <!-- Hiển thị nếu sản phẩm là Hot -->
                                 <td><%= product.isHot() ? "Yes" : "No" %></td>
-
+                                <td><%= product.getCreateTime() != null ? product.getCreateTime() : "N/A" %></td>
                                 <td>
                                     <a href="ProductURL?service=updateProduct&pid=<%= product.getProductId() %>" class="edit" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                                     <a href="ProductURL?service=deleteProduct&pid=<%= product.getProductId() %>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
@@ -123,7 +238,7 @@
                             <% } %>
                             <% } else { %>
                             <tr>
-                                <td colspan="10" class="text-center">No products found.</td>
+                                <td colspan="12" class="text-center">No products found.</td>
                             </tr>
                             <% } %>
                         </tbody>
@@ -132,7 +247,8 @@
                     <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Insert New Product</a></p>
                 </div>
             </div>  
-        </div>  
+        </div>
+        <!-- footer start -->
         <footer>
             <div class="container">
                 <div class="row">
@@ -182,20 +298,7 @@
                             </div>     
                             <div class="col-md-5">
                                 <div class="widget_menu">
-                                    <h3>Đăng ký ngay</h3>
-                                    <div class="information_f">
-                                        <p>Đăng ký ngay nào</p>
-                                    </div>
-                                    <div class="form_sub">
-                                        <form>
-                                            <fieldset>
-                                                <div class="field">
-                                                    <input type="email" placeholder="Enter Your Mail" name="email" />
-                                                    <input type="submit" value="Subscribe" />
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

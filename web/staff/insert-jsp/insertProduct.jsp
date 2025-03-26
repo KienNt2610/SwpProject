@@ -35,17 +35,13 @@
         <table>
             <caption>Insert Product</caption>
             <tr>
-                <td><label for="ProductId">ProductId</label></td>
-                <td><input type="number" name="ProductId" id="ProductId" readonly></td>
-            </tr>
-            <tr>
                 <td><label for="ProductName">ProductName</label></td>
-                <td><input type="text" name="ProductName" id="ProductName"></td>
+                <td><input type="text" name="ProductName" id="ProductName" required></td>
             </tr>
             <tr>
                 <td><label for="CategoryId">CategoryId</label></td>
                 <td>
-                    <select name="CategoryId" id="CategoryId">
+                    <select name="CategoryId" id="CategoryId" required>
                         <option value="1">Bóng đá</option>
                         <option value="2">Cầu lông</option>
                         <option value="3">Bóng bàn</option>
@@ -57,26 +53,41 @@
             </tr>
             <tr>
                 <td><label for="Price">Price</label></td>
-                <td><input type="number" name="Price" id="Price" onchange="validateForm()"></td>
+                <td><input type="number" name="Price" id="Price" onchange="validateForm()" required></td>
             </tr>
             <tr>
                 <td><label for="SalePrice">Sale Price</label></td>
-                <td><input type="text" name="SalePrice" id="SalePrice" readonly></td>
+                <td><input type="text" name="SalePrice" id="SalePrice" readonly required></td>
             </tr>
             <tr>
                 <td><label for="Quantity">Quantity</label></td>
-                <td><input type="number" name="Quantity" id="Quantity"></td>
+                <td><input type="number" name="Quantity" id="Quantity" required></td>
+            </tr>
+            <tr>
+                <td><label for="SoldQuantity">Sold Quantity</label></td>
+                <td><input type="number" name="SoldQuantity" id="SoldQuantity" value="0" readonly></td>
             </tr>
             <tr>
                 <td><label for="Description">Description</label></td>
-                <td><textarea name="Description" id="Description"></textarea></td>
+                <td><textarea name="Description" id="Description" required></textarea></td>
             </tr>
             <tr>
-                <td><label for="Discontinued">Bussiness Status</label></td>
+                <td><label for="Discontinued">Business Status</label></td>
                 <td>
                     <input type="radio" name="Discontinued" id="Discontinued" value="1" checked> Continued
                     <input type="radio" name="Discontinued" id="Discontinued" value="0"> Discontinued
                 </td>
+            </tr>
+            <tr>
+                <td><label for="IsHot">Hot</label></td>
+                <td>
+                    <input type="radio" name="IsHot" id="IsHot" value="false" checked> No
+                    <input type="radio" name="IsHot" id="IsHot" value="true"> Yes
+                </td>
+            </tr>
+            <tr>
+                <td><label for="CreateTime">Create Date</label></td>
+                <td><input type="datetime-local" name="CreateTime" id="CreateTime" value="<%= new java.util.Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime() %>"></td>
             </tr>
             <tr>
                 <td><input type="submit" value="Insert Product" name="submit"></td>

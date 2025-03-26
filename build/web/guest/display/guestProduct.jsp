@@ -9,14 +9,14 @@
     Vector<Category> categoryList = (Vector<Category>) request.getAttribute("categoryList");
 
     // Xử lý giá trị categoryId từ request
-    String selectedCategory = request.getParameter("categoryId");
-    int selectedCategoryId = -1;
+    String selectedCategoryguest = request.getParameter("categoryId");
+    int selectedCategoryIdguest = -1;
 
-    if (selectedCategory != null && !selectedCategory.isEmpty()) {
+    if (selectedCategoryguest != null && !selectedCategoryguest.isEmpty()) {
         try {
-            selectedCategoryId = Integer.parseInt(selectedCategory);
+            selectedCategoryIdguest = Integer.parseInt(selectedCategoryguest);
         } catch (NumberFormatException e) {
-            selectedCategoryId = -1; // Nếu lỗi, giữ giá trị mặc định
+            selectedCategoryIdguest = -1; // Nếu lỗi, giữ giá trị mặc định
         }
     }
 %>
@@ -386,6 +386,250 @@
                 text-align: center;
             }
 
+            /* Footer Styling */
+            footer {
+                background-color: #f8f8f8; /* Màu nền sáng cho footer */
+                color: #333; /* Màu chữ tối */
+                padding: 50px 0;
+            }
+
+            footer .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            footer .row {
+                display: flex;
+                justify-content: space-between; /* Chia đều không gian giữa các cột */
+                flex-wrap: wrap; /* Cho phép các phần tử thừa xuống dòng khi màn hình nhỏ */
+            }
+
+            footer .col-md-4, footer .col-md-3, footer .col-md-5 {
+                flex: 1 1 30%; /* Các phần tử chia đều */
+                padding: 10px;
+                box-sizing: border-box;
+                text-align: left;
+            }
+
+            /* Logo Footer */
+            footer .logo_footer {
+                margin-bottom: 30px;
+            }
+
+            footer .logo_footer img {
+                width: 150px; /* Điều chỉnh kích thước logo */
+                display: block;
+            }
+
+            /* Thông tin liên hệ */
+            footer .information_f p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            footer .information_f p strong {
+                font-weight: bold;
+            }
+
+            /* Widget Menu - Link Menu */
+            footer .widget_menu h3 {
+                font-size: 18px;
+                color: #f7444e;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            footer .widget_menu ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            footer .widget_menu ul li {
+                margin-bottom: 10px;
+            }
+
+            footer .widget_menu ul li a {
+                color: #333;
+                font-size: 14px;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+            footer .widget_menu ul li a:hover {
+                color: #f7444e;
+            }
+
+            /* Form Đăng ký */
+            footer .form_sub {
+                background-color: #333;
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 20px;
+            }
+
+            footer .form_sub .field {
+                display: flex;
+                flex-direction: column;
+            }
+
+            footer .form_sub .field input[type="email"] {
+                padding: 12px;
+                font-size: 14px;
+                margin-bottom: 10px;
+                border: none;
+                border-radius: 8px;
+                outline: none;
+            }
+
+            footer .form_sub .field input[type="email"]:focus {
+                box-shadow: 0 0 5px rgba(247, 68, 78, 0.3);
+            }
+
+            footer .form_sub .field input[type="submit"] {
+                padding: 12px;
+                font-size: 14px;
+                font-weight: bold;
+                background-color: #f7444e;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            footer .form_sub .field input[type="submit"]:hover {
+                background-color: #d93d3b;
+            }
+
+            /* Footer Styles */
+            footer {
+                background-color: #f8f9fa; /* Màu nền sáng cho footer */
+                padding: 40px 0; /* Thêm khoảng cách trên và dưới */
+                color: #333; /* Màu chữ tối */
+                font-family: Arial, sans-serif; /* Chọn font chữ dễ đọc */
+            }
+
+            footer .container {
+                max-width: 1140px; /* Giới hạn chiều rộng */
+                margin: 0 auto; /* Căn giữa */
+            }
+
+            footer .row {
+                display: flex;
+                flex-wrap: wrap; /* Cho phép các phần tử trong footer tự động xuống dòng khi không đủ chỗ */
+            }
+
+            footer .col-md-4,
+            footer .col-md-8 {
+                padding: 0 15px; /* Thêm padding cho các cột */
+            }
+
+            footer .logo_footer {
+                margin-bottom: 20px; /* Khoảng cách dưới logo */
+            }
+
+            footer .logo_footer img {
+                max-width: 100%; /* Đảm bảo logo luôn nằm trong vùng hiển thị */
+            }
+
+            footer .information_f {
+                margin-top: 20px;
+            }
+
+            footer .information_f p {
+                font-size: 14px;
+                margin: 5px 0; /* Thêm khoảng cách giữa các dòng */
+            }
+
+            footer .widget_menu h3 {
+                font-size: 18px;
+                margin-bottom: 15px; /* Khoảng cách dưới tiêu đề widget */
+                color: #333;
+                font-weight: bold;
+            }
+
+            footer .widget_menu ul {
+                list-style-type: none; /* Loại bỏ các dấu chấm đầu dòng */
+                padding: 0;
+            }
+
+            footer .widget_menu ul li {
+                margin-bottom: 10px;
+            }
+
+            footer .widget_menu ul li a {
+                color: #555; /* Màu chữ của các liên kết */
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+            footer .widget_menu ul li a:hover {
+                color: #f7444e; /* Thay đổi màu khi hover */
+            }
+
+            footer .col-md-5 .form_sub {
+                background-color: #fff;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho form */
+            }
+
+            footer .col-md-5 .form_sub input[type="email"] {
+                width: calc(100% - 150px); /* Chiếm hết chiều rộng trừ button */
+                padding: 10px;
+                margin-right: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            footer .col-md-5 .form_sub input[type="submit"] {
+                width: 130px;
+                padding: 10px;
+                background-color: #f7444e; /* Màu nền đỏ cho button */
+                border: none;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            footer .col-md-5 .form_sub input[type="submit"]:hover {
+                background-color: #d63636; /* Đổi màu khi hover */
+            }
+
+            footer .col-md-8 .row {
+                margin-top: 30px; /* Khoảng cách giữa các phần */
+            }
+
+            footer .col-md-8 .row .col-md-6 {
+                margin-bottom: 20px;
+            }
+
+            footer .col-md-8 .row .col-md-6 .widget_menu ul li a {
+                color: #666;
+            }
+
+            footer .col-md-8 .row .col-md-6 .widget_menu ul li a:hover {
+                color: #f7444e;
+            }
+
+            @media screen and (max-width: 768px) {
+                footer .row {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                footer .col-md-4, footer .col-md-8 {
+                    width: 100%;
+                    padding: 0;
+                }
+
+                footer .widget_menu ul li {
+                    text-align: center;
+                }
+            }
+
+
+
 
         </style>
     </head>
@@ -418,9 +662,6 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="ProductURL?service=guestProduct">Tất Cả Sản Phẩm</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="contact.html">Liên Hệ</a>
                             </li>
                             <li class="nav-item">
@@ -434,19 +675,29 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <form method="GET" action="ProductURL">
+            <!-- Tìm kiếm theo tên sản phẩm -->
+            <form action="ProductURL" method="get" class="product-filter-form">
                 <input type="hidden" name="service" value="guestProduct">
 
-                <!-- Filter by Category -->
-                <label for="category">Danh mục</label>
-                <select name="categoryId" id="category">
+                <label for="pnameguest">Search by Name:</label>
+                <input type="text" name="pnameguest" id="pnameguest" value="<%= request.getParameter("pnameguest") != null ? request.getParameter("pnameguest") : "" %>" class="form-control">
+
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </form>
+
+            <!-- Lọc theo Category -->
+            <form method="GET" action="ProductURL" class="product-filter-form">
+                <input type="hidden" name="service" value="guestProduct">
+
+                <label for="categoryId">Danh mục:</label>
+                <select name="categoryId" id="categoryId" class="form-control">
                     <option value="">Tất cả sản phẩm</option>
                     <%
                         if (categoryList != null) {
                             for (Category category : categoryList) {
                     %>
                     <option value="<%= category.getCategoryId() %>"
-                            <%= category.getCategoryId() == selectedCategoryId ? "selected" : "" %> >
+                            <%= category.getCategoryId() == selectedCategoryIdguest ? "selected" : "" %> >
                         <%= category.getCategoryName() %>
                     </option>
                     <%
@@ -455,8 +706,15 @@
                     %>
                 </select>
 
-                <label for="sort">Sắp xếp theo:</label>
-                <select name="sortBy" id="sort">
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </form>
+
+            <!-- Sắp xếp sản phẩm -->
+            <form method="GET" action="ProductURL" class="product-filter-form">
+                <input type="hidden" name="service" value="guestProduct">
+
+                <label for="sortBy">Sắp xếp theo:</label>
+                <select name="sortBy" id="sortBy" class="form-control">
                     <option value="">Mặc định</option>
                     <option value="priceAsc">Giá thấp đến cao</option>
                     <option value="priceDesc">Giá cao đến thấp</option>
@@ -464,7 +722,7 @@
                     <option value="nameDesc">Tên từ Z-A</option>
                 </select>
 
-                <button type="submit">Xác nhận</button>
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
             </form>
 
             <!-- Filter by Hot Products -->
@@ -472,14 +730,16 @@
                 <input type="hidden" name="service" value="guestProduct">
 
                 <label for="isHot">Sản phẩm hot:</label>
-                <select name="isHot" id="isHot">
+                <select name="isHot" id="isHot" class="form-control">
                     <option value="">Tất cả</option>
                     <option value="1" <%= "1".equals(request.getAttribute("isHot")) ? "selected" : "" %>>Sản phẩm hot</option>
                 </select>
 
-                <button type="submit">Xác nhận</button>
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
             </form>
         </div>
+
+
 
         <div class="main-content">
             <div class="container py-5">
@@ -545,6 +805,64 @@
         </div>
 
 
+        <!-- footer start -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="full">
+                            <div class="logo_footer">
+                                <a href="#"><img width="100" src="images/logo.png" alt="#" /></a>
+                            </div>
+                            <div class="information_f">
+                                <p><strong>Địa chỉ:</strong> TT02-01 MonCity, Ngõ 4 Hàm Nghi, Mỹ Đình 2, Nam Từ Liêm Hanoi, Vietnam</p>
+                                <p><strong>Số điện thoại:</strong> +84 833 617 083</p>
+                                <p><strong>Email:</strong> SportGear@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="widget_menu">
+                                            <h3>Thương hiệu</h3>
+                                            <ul>
+                                                <li><a href="#">Trang chủ</a></li>
+                                                <li><a href="#">Giới thiệu</a></li>
+                                                <li><a href="#">Tin tức</a></li>
+                                                <li><a href="#">Tuyển dụng</a></li>
+                                                <li><a href="#">Hệ thống cửa hàng</a></li>
+                                                <li><a href="#">Liên hệ</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="widget_menu">
+                                            <h3>Hỗ trợ</h3>
+                                            <ul>
+                                                <li><a href="#">Hỏi đáp</a></li>
+                                                <li><a href="#">Chính sách KHTT</a></li>
+                                                <li><a href="#">Chính sách vận chuyển</a></li>
+                                                <li><a href="#">Gợi ý tìm size</a></li>
+                                                <li><a href="#">Kiểm tra đơn hàng</a></li>
+                                                <li><a href="#">Chính sách bảo mật KH</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>     
+                            <div class="col-md-5">
+                                <div class="widget_menu">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
 
     </body>

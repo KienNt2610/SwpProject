@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -17,13 +17,13 @@ public class Product {
     private boolean discontinued;  // Discontinued is of type bit (boolean)
     private boolean isHot;         // IsHot is of type bit (boolean)
     private int soldQuantity;
-    private Date createTime;
+    private java.sql.Timestamp createTime;
     private double salePrice;
 
     public Product() {
     }
 
-    public Product(String productName, int categoryId, double price, int quantity, String description, boolean discontinued, boolean isHot, int soldQuantity, Date createTime, double salePrice) {
+    public Product(String productName, int categoryId, double price, int quantity, String description, boolean discontinued, boolean isHot, int soldQuantity, Timestamp createTime, double salePrice) {
         this.productName = productName;
         this.categoryId = categoryId;
         this.price = price;
@@ -36,7 +36,7 @@ public class Product {
         this.salePrice = salePrice;
     }
 
-    public Product(int productId, String productName, int categoryId, double price, int quantity, String description, boolean discontinued, boolean isHot, int soldQuantity, Date createTime, double salePrice) {
+    public Product(int productId, String productName, int categoryId, double price, int quantity, String description, boolean discontinued, boolean isHot, int soldQuantity, Timestamp createTime, double salePrice) {
         this.productId = productId;
         this.productName = productName;
         this.categoryId = categoryId;
@@ -106,11 +106,11 @@ public class Product {
         this.discontinued = discontinued;
     }
 
-    public boolean isHot() {
+    public boolean isHot() { 
         return isHot;
     }
 
-    public void setHot(boolean isHot) {
+    public void setIsHot(boolean isHot) {
         this.isHot = isHot;
     }
 
@@ -122,11 +122,11 @@ public class Product {
         this.soldQuantity = soldQuantity;
     }
 
-    public Date getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 
@@ -142,5 +142,5 @@ public class Product {
     public String toString() {
         return "Product{" + "productId=" + productId + ", productName=" + productName + ", categoryId=" + categoryId + ", price=" + price + ", quantity=" + quantity + ", description=" + description + ", discontinued=" + discontinued + ", isHot=" + isHot + ", soldQuantity=" + soldQuantity + ", createTime=" + createTime + ", salePrice=" + salePrice + '}';
     }
-    
+
 }

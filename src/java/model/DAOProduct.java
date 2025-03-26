@@ -11,11 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Kien
+ * Data Access Object for handling Product-related operations
  */
 public class DAOProduct extends DBCConnection {
 
+    // Insert product into the database
     public int insertProduct(Product product) {
         int n = 0;
         String sql = "INSERT INTO [dbo].[Product]\n"
@@ -28,7 +28,7 @@ public class DAOProduct extends DBCConnection {
                 + "           ,[SoldQuantity]\n"
                 + "           ,[CreateTime]\n"
                 + "           ,[SalePrice]\n"
-                + "           ,[IsHot])\n" // Thêm trường IsHot
+                + "           ,[IsHot])\n"
                 + "     VALUES\n"
                 + "           ('" + product.getProductName() + "',"
                 + product.getCategoryId() + ","
@@ -38,7 +38,7 @@ public class DAOProduct extends DBCConnection {
                 + product.getSoldQuantity() + ","
                 + (product.getCreateTime() != null ? "'" + product.getCreateTime() + "'" : "NULL") + ","
                 + product.getSalePrice() + ","
-                + (product.isHot() ? 1 : 0) + ")";  // Thêm giá trị cho IsHot
+                + (product.isHot()? 1 : 0) + ")";
         try {
             Statement state = conn.createStatement();
             n = state.executeUpdate(sql);
@@ -48,6 +48,7 @@ public class DAOProduct extends DBCConnection {
         return n;
     }
 
+    // Add product to the database using PreparedStatement for security and performance
     public int addProduct(Product product) {
         int n = 0;
         String sql = "INSERT INTO [dbo].[Product]\n"
@@ -60,7 +61,7 @@ public class DAOProduct extends DBCConnection {
                 + "           ,[SoldQuantity]\n"
                 + "           ,[CreateTime]\n"
                 + "           ,[SalePrice]\n"
-                + "           ,[IsHot])\n" // Thêm trường IsHot
+                + "           ,[IsHot])\n"
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?,?,?,?,?);";
         try {
@@ -74,7 +75,7 @@ public class DAOProduct extends DBCConnection {
             pre.setInt(7, product.getSoldQuantity());
             pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
             pre.setDouble(9, product.getSalePrice());
-            pre.setInt(10, product.isHot() ? 1 : 0);  // Thêm giá trị cho IsHot
+            pre.setInt(10, product.isHot()? 1 : 0);
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -82,6 +83,7 @@ public class DAOProduct extends DBCConnection {
         return n;
     }
 
+    // Change product discontinued status
     public void changeDiscontinued(int pid, int newValue) {
         String sql = "UPDATE Product SET Discontinued=" + newValue + " WHERE ProductId=" + pid;
         try {
@@ -92,10 +94,9 @@ public class DAOProduct extends DBCConnection {
         }
     }
 
+    // Delete product from the database
     public int deleteProduct(int pid) {
         int n = 0;
-        // Example: check if the product is referenced in other tables (similar to downloads or reviews)
-        // If referenced, change status instead of deleting
         String sqlCheckOrderDetail = "select * from OrderDetail WHERE ProductId=" + pid;
         String sqlCheckFeedback = "select * from Feedback WHERE ProductId=" + pid;
         String sqlCheckCartDetail = "select * from CartDetail WHERE ProductId=" + pid;
@@ -112,7 +113,7 @@ public class DAOProduct extends DBCConnection {
                 changeDiscontinued(pid, 0);
                 return 0;
             }
-            String sql = "delete from Product WHERE ProductId=" + pid;
+            String sql = "DELETE FROM Product WHERE ProductId=" + pid;
             Statement state = conn.createStatement();
             n = state.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -122,6 +123,7 @@ public class DAOProduct extends DBCConnection {
         return n;
     }
 
+    // Update product details in the database
     public int updateProduct(Product product) {
         int n = 0;
         String sql = "UPDATE [dbo].[Product]\n"
@@ -138,7 +140,7 @@ public class DAOProduct extends DBCConnection {
             pre.setInt(7, product.getSoldQuantity());
             pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
             pre.setDouble(9, product.getSalePrice());
-            pre.setInt(10, product.isHot() ? 1 : 0);  // Thêm giá trị cho IsHot
+            pre.setInt(10, product.isHot()? 1 : 0);
             pre.setInt(11, product.getProductId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
@@ -147,6 +149,7 @@ public class DAOProduct extends DBCConnection {
         return n;
     }
 
+    // Fetch products from the database
     public Vector<Product> getProduct(String sql) {
         Vector<Product> vector = new Vector<Product>();
         try (PreparedStatement pre = conn.prepareStatement(sql)) {
@@ -163,7 +166,7 @@ public class DAOProduct extends DBCConnection {
                 int SoldQuantity = rs.getInt("SoldQuantity");
                 java.sql.Timestamp createTime = rs.getTimestamp("CreateTime");
                 double SalePrice = rs.getDouble("SalePrice");
-                boolean IsHot = (rs.getInt("IsHot") == 1);  // Lấy giá trị IsHot từ database
+                boolean IsHot = (rs.getInt("IsHot") == 1);
 
                 Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, Discontinued, IsHot, SoldQuantity, createTime, SalePrice);
                 vector.add(product);
@@ -174,6 +177,7 @@ public class DAOProduct extends DBCConnection {
         return vector;
     }
 
+    // Fetch all categories from the database
     public Vector<Category> getCategories() {
         Vector<Category> categories = new Vector<>();
         String sql = "SELECT * FROM Category";
@@ -192,9 +196,10 @@ public class DAOProduct extends DBCConnection {
         return categories;
     }
 
+    // Main method for testing
     public static void main(String[] args) {
         DAOProduct dao = new DAOProduct();
-        Vector<Product> vector = dao.getProduct("select * from Product");
+        Vector<Product> vector = dao.getProduct("SELECT * FROM Product");
         for (Product product : vector) {
             System.out.println(product);
         }

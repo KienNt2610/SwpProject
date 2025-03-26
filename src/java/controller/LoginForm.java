@@ -38,21 +38,20 @@ public class LoginForm extends HttpServlet {
                 Customer customer = daoCustomer.getCustomerByUsernameAndPassword(username, password);
 
                 if (customer != null && customer.getRoleId() == 3) { // RoleId = 3 tức là Customer
-                    // Nếu đăng nhập thành công, lưu thông tin khách hàng vào session
+                 
                     request.getSession().setAttribute("customer", customer);
 
-                    // Chuyển hướng đến trang homepage sau khi đăng nhập thành công
-                    response.sendRedirect("index_1.html");
+                    response.sendRedirect("afterlogin.html");
                 } else {
-                    // Nếu thông tin không hợp lệ hoặc RoleId không phải Customer, hiển thị thông báo lỗi
+                
                     request.setAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không hợp lệ");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
-                    dispatcher.forward(request, response); // Quay lại trang đăng nhập và hiển thị lỗi
+                    dispatcher.forward(request, response); 
                 }
             } else {
                 request.setAttribute("errorMessage", "Vui lòng nhập tên đăng nhập và mật khẩu.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
-                dispatcher.forward(request, response); // Quay lại trang đăng nhập và hiển thị lỗi
+                dispatcher.forward(request, response); 
             }
         }
 
