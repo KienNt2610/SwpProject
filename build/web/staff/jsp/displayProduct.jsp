@@ -4,9 +4,7 @@
 <%
     Vector<Product> vector = (Vector<Product>) request.getAttribute("data");
     String title = (String) request.getAttribute("title");
-    // Lấy danh sách Category từ request
     Vector<Category> categoryList = (Vector<Category>) request.getAttribute("categoryList");
-    // Lấy selectedCategoryId từ request (nếu có)
     String selectedCategoryId = (String) request.getAttribute("selectedCategoryId");
 %>
 
@@ -25,28 +23,101 @@
         <style>
             /* Cải thiện giao diện cho các form tìm kiếm và lọc */
             .sidebar {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 20px; /* Khoảng cách giữa các form */
-                justify-content: flex-start;
+                position: fixed;
+                top: 150px;  /* Thêm khoảng cách từ trên cùng để không bị đè lên header */
+                left: 0;
+                bottom: 0;
+                width: 250px;
+                background-color: #4CAF50;
+                color: white;
+                padding-top: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
+                z-index: 2;  /* Đảm bảo sidebar luôn ở trên phần nội dung */
+                height: calc(100% - 60px); /* Đảm bảo sidebar có chiều cao đầy đủ, tránh che header */
+            }
+
+            .content {
+                margin-left: 250px; /* Đẩy nội dung sang phải để có chỗ cho sidebar */
+                padding: 20px;
+                padding-top: 60px;  /* Thêm padding-top để nội dung không bị che bởi header */
+            }
+
+            .header_section {
+                position: sticky;
+                top: 0;
+                z-index: 3;  /* Đảm bảo header luôn nằm trên sidebar */
+                padding: 15px 0;
+                background-color: white;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                width: 100%;
+            }
+
+            /* Sidebar Menu Styles */
+            .sidebar h2 {
                 margin-bottom: 20px;
             }
 
+            .sidebar p {
+                margin-bottom: 15px;
+            }
+
+            .sidebar a {
+                display: block;
+                text-decoration: none;
+                color: white;
+                padding: 10px;
+                margin: 5px 0;
+                background-color: #3e8e41;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+            .sidebar a:hover {
+                background-color: #45a049;
+            }
+
+            /* Table Styling */
+            table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
+
+            table th, table td {
+                padding: 10px;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+
+            /* Footer */
+            footer {
+                background-color: #f1f1f1;
+                text-align: center;
+                padding: 10px;
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+            }
+
+            /* Form Styling */
             .product-filter-form {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
-                max-width: 250px; /* Giới hạn chiều rộng của mỗi form */
+                max-width: 250px;
             }
 
             .inline-form {
                 display: flex;
                 align-items: center;
                 gap: 10px;
+                margin-bottom: 10px;
             }
 
             .inline-form input, .inline-form select {
-                width: 150px; /* Giới hạn chiều rộng của input và select */
+                width: 150px;
                 padding: 5px;
             }
 
@@ -58,7 +129,7 @@
                 padding: 5px 15px;
             }
 
-            /* Điều chỉnh các nút để giao diện mềm mại hơn */
+            /* Buttons Styling */
             .btn-primary {
                 padding: 5px 15px;
                 font-size: 14px;
@@ -85,21 +156,17 @@
                 background-color: #218838;
             }
 
-            form {
-                margin-bottom: 20px;
-            }
-
-            label {
-                font-size: 14px;
-                font-weight: 600;
-                margin-bottom: 5px;
-            }
-
-            /* Đảm bảo rằng các form lọc sẽ hiển thị hợp lý trên các màn hình nhỏ */
+            /* Ensure proper display on small screens */
             @media screen and (max-width: 768px) {
                 .sidebar {
                     flex-direction: column;
                     align-items: flex-start;
+                    width: 100%;  /* Sidebar takes full width on mobile */
+                    height: auto; /* Avoid overflow issue */
+                }
+
+                .content {
+                    margin-left: 0;
                 }
 
                 .inline-form {
@@ -108,13 +175,14 @@
                 }
 
                 .inline-form input, .inline-form select, .inline-form button {
-                    width: 100%; /* Chiếm hết chiều rộng màn hình khi trên thiết bị di động */
+                    width: 100%; /* Ensure form elements take full width on mobile */
                 }
             }
 
         </style>
     </head>
     <body>
+        <!-- Header Section -->
         <header class="header_section">
             <div class="container">
                 <nav class="navbar navbar-expand-lg custom_nav-container">
@@ -126,18 +194,33 @@
             </div>
         </header>
 
-        <div class="container-xl">
+        <!-- Sidebar Menu -->
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <p><a href="ProductURL?service=listAllProduct">Product controller</a></p>
+            <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a></p>
+            <p><a href="OrderURL?service=listAllOrder">Order controller</a></p>
+            <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a></p>
+            <p><a href="CartURL?service=listAllCart">Cart controller</a></p>
+            <p><a href="CartDetailURL?service=listAllCartDetail">CartDetail controller</a></p>
+            <p><a href="CategoryURL?service=listAllCategory">Category controller</a></p>
+            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a></p>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content">
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title">
                         <h2><%= title != null ? title : "Product List" %></h2>
                     </div>
 
-                    <div class="sidebar">
+                    <!-- Filter Forms -->
+                    <div class="d-flex justify-content-start mb-4">
                         <!-- Tìm kiếm theo tên sản phẩm -->
                         <form action="ProductURL" method="get" class="product-filter-form inline-form">
                             <input type="hidden" name="service" value="listAllProduct">
-                            <label for="pname">Search by Name:</label>
+                            <label for="pname">Tìm kiếm sản phẩm:</label>
                             <input type="text" name="pname" id="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>" class="form-control">
                             <button type="submit" class="btn btn-primary">Xác nhận</button>
                         </form>
@@ -148,21 +231,15 @@
                             <label for="categoryId">Danh mục:</label>
                             <select name="categoryId" id="categoryId" class="form-control">
                                 <option value="">Tất cả sản phẩm</option>
-                                <%
-                                    if (categoryList != null) {
-                                        for (Category category : categoryList) {
-                                %>
-                                <option value="<%= category.getCategoryId() %>"
-                                        <%= category.getCategoryId() == Integer.parseInt(selectedCategoryId) ? "selected" : "" %> >
-                                    <%= category.getCategoryName() %>
-                                </option>
-                                <%
-                                        }
-                                    }
-                                %>
+                                <option value="1" <%= "1".equals(request.getParameter("categoryId")) ? "selected" : "" %>>Bóng đá</option>
+                                <option value="2" <%= "2".equals(request.getParameter("categoryId")) ? "selected" : "" %>>Cầu lông</option>
+                                <option value="3" <%= "3".equals(request.getParameter("categoryId")) ? "selected" : "" %>>Bóng bàn</option>
+                                <option value="4" <%= "4".equals(request.getParameter("categoryId")) ? "selected" : "" %>>Tenis</option>
+                                <option value="5" <%= "5".equals(request.getParameter("categoryId")) ? "selected" : "" %>>Phụ kiện thể thao</option>
+                                <option value="6" <%= "6".equals(request.getParameter("categoryId")) ? "selected" : "" %>>Quần áo thể thao</option>
                             </select>
                             <input type="hidden" name="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>">
-                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
                         </form>
 
                         <!-- Sắp xếp sản phẩm -->
@@ -178,7 +255,7 @@
                             </select>
                             <input type="hidden" name="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>">
                             <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
-                            <button type="submit" class="btn btn-primary">Sort</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
                         </form>
 
                         <!-- Filter by Hot Products -->
@@ -192,11 +269,11 @@
                             <input type="hidden" name="pname" value="<%= request.getParameter("pname") != null ? request.getParameter("pname") : "" %>">
                             <input type="hidden" name="categoryId" value="<%= request.getParameter("categoryId") != null ? request.getParameter("categoryId") : "" %>">
                             <input type="hidden" name="sortBy" value="<%= request.getParameter("sortBy") != null ? request.getParameter("sortBy") : "" %>">
-                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
                         </form>
                     </div>
-                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success mb-4">Insert New Product</a></p>
 
+                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success mb-4">Thêm sản phẩm mới</a></p>
 
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
@@ -244,66 +321,15 @@
                         </tbody>
                     </table>
 
-                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Insert New Product</a></p>
+                    <p><a href="ProductURL?service=insertProduct" class="btn btn-success">Thêm sản phẩm mới</a></p>
                 </div>
             </div>  
         </div>
-        <!-- footer start -->
+
+        <!-- Footer -->
         <footer>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="full">
-                            <div class="logo_footer">
-                                <a href="#"><img width="100" src="images/logo.png" alt="#" /></a>
-                            </div>
-                            <div class="information_f">
-                                <p><strong>Địa chỉ:</strong> TT02-01 MonCity, Ngõ 4 Hàm Nghi, Mỹ Đình 2, Nam Từ Liêm Hanoi, Vietnam</p>
-                                <p><strong>Số điện thoại:</strong> +84 833 617 083</p>
-                                <p><strong>Email:</strong> SportGear@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="widget_menu">
-                                            <h3>Thương hiệu</h3>
-                                            <ul>
-                                                <li><a href="#">Trang chủ</a></li>
-                                                <li><a href="#">Giới thiệu</a></li>
-                                                <li><a href="#">Tin tức</a></li>
-                                                <li><a href="#">Tuyển dụng</a></li>
-                                                <li><a href="#">Hệ thống cửa hàng</a></li>
-                                                <li><a href="#">Liên hệ</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="widget_menu">
-                                            <h3>Hỗ trợ</h3>
-                                            <ul>
-                                                <li><a href="#">Hỏi đáp</a></li>
-                                                <li><a href="#">Chính sách KHTT</a></li>
-                                                <li><a href="#">Chính sách vận chuyển</a></li>
-                                                <li><a href="#">Gợi ý tìm size</a></li>
-                                                <li><a href="#">Kiểm tra đơn hàng</a></li>
-                                                <li><a href="#">Chính sách bảo mật KH</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>     
-                            <div class="col-md-5">
-                                <div class="widget_menu">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p>&copy; 2025 SPORTGEARSHOP</p>
             </div>
         </footer>
     </body>

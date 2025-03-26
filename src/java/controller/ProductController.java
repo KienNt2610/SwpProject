@@ -159,22 +159,43 @@ public class ProductController extends HttpServlet {
             }
 
             if (service.equals("listAllProduct")) {
-                String sql = "SELECT * FROM Product WHERE 1=1"; // Đảm bảo rằng điều kiện cơ bản được sử dụng
-                String pname = request.getParameter("pname");
-                String categoryId = request.getParameter("categoryId");
+                String sql = "SELECT * FROM Product WHERE 1=1";
 
+                String pname = request.getParameter("pname");
                 if (pname != null && !pname.trim().isEmpty()) {
-                    sql += " AND ProductName LIKE '%" + pname + "%'";  // Tìm kiếm theo tên sản phẩm
+                    sql += " AND ProductName LIKE '%" + pname + "%'";
                 }
 
+                String categoryId = request.getParameter("categoryId");
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
-                    sql += " AND CategoryId = '" + categoryId + "'";  // Lọc theo CategoryId
+                    sql += " AND CategoryId = '" + categoryId + "'";
+                }
+
+                String isHot = request.getParameter("isHot");
+                if ("1".equals(isHot)) {
+                    sql += " AND IsHot = 1";
+                }
+
+                String sortBy = request.getParameter("sortBy");
+                if ("priceAsc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY Price ASC";
+                } else if ("priceDesc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY Price DESC";
+                } else if ("nameAsc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY ProductName ASC";
+                } else if ("nameDesc".equalsIgnoreCase(sortBy)) {
+                    sql += " ORDER BY ProductName DESC";
                 }
 
                 Vector<Product> vector = dao.getProduct(sql);
+
                 request.setAttribute("data", vector);
-                request.setAttribute("title", "Product manager");
-                request.setAttribute("selectedCategoryId", categoryId); // Truyền selectedCategoryId vào request
+                request.setAttribute("title", "");
+                request.setAttribute("selectedCategoryId", categoryId);
+                request.setAttribute("selectedIsHot", isHot);
+                request.setAttribute("pname", pname);
+                request.setAttribute("selectedSortBy", sortBy);
+
                 RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayProduct.jsp");
                 dispath.forward(request, response);
             }
