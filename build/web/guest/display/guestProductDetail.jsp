@@ -85,27 +85,37 @@
                                     <span class="product_info">${productInfo4}</span>
                                 </div>
                                 <div>
-                                    <form action="addToCart" method="POST">
-                                        <label for="color">Chọn màu:</label>
-                                        <select id="color" name="color">
-                                            <c:forEach var="color" items="${uniqueColors}">
-                                                <option value="${color}">${color}</option>
-                                            </c:forEach>
-                                        </select><br><br>
+                                    <div>
+                                        <form action="CartServlet" method="GET">
+                                            <input type="hidden" name="service" value="addToCart"> <!-- Thông báo servlet là 'addToCart' -->
+                                            <input type="hidden" name="productId" value="${product.productId}"> <!-- Truyền productId của sản phẩm -->
 
-                                        <label for="size">Chọn size:</label>
-                                        <select id="size" name="size">
-                                            <c:forEach var="size" items="${uniqueSizes}">
-                                                <option value="${size}">${size}</option>
-                                            </c:forEach>
-                                        </select><br><br>
+                                            <label for="color">Chọn màu:</label>
+                                            <select id="color" name="color">
+                                                <c:forEach var="color" items="${uniqueColors}">
+                                                    <option value="${color}">${color}</option>
+                                                </c:forEach>
+                                            </select><br><br>
 
-                                        <label for="quantity">Số lượng:</label>
-                                        <input id="quantity_input" type="number" name="quantity" value="1" min="1"><br><br>
+                                            <label for="size">Chọn size:</label>
+                                            <select id="size" name="size">
+                                                <c:forEach var="size" items="${uniqueSizes}">
+                                                    <option value="${size}">${size}</option>
+                                                </c:forEach>
+                                            </select><br><br>
 
-                                        <button type="submit">Thêm vào rỏ hàng</button>
-                                        <button type="button" class="btn btn-success shop-button">Mua ngay</button>
-                                    </form>
+                                            <label for="quantity">Số lượng:</label>
+                                            <input id="quantity_input" type="number" name="quantity" value="1" min="1"><br><br>
+
+                                            <button type="submit">Thêm vào giỏ hàng</button>
+                                            <button type="button" class="btn btn-success shop-button">Mua ngay</button>
+                                        </form>
+
+
+
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

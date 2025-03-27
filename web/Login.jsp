@@ -222,7 +222,11 @@
                                 <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
                                 <div class="social-login">
-                                    <a href="#" class="google btn d-flex justify-content-center align-items-center">
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openied 
+                                       &redirect_uri=http://localhost:8080/SwpProject/LoginURL
+                                       &response_type=code
+                                       &client_id=2226866107-h2ejeutr11vkf4u4bki43ptk6h3jq660.apps.googleusercontent.com"
+                                       &approval_prompt=force" class="google btn d-flex justify-content-center align-items-center">
                                         <span class="icon-google mr-3"></span> Đăng nhập với Google
                                     </a>
                                 </div>
