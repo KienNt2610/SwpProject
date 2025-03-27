@@ -3,26 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/entity/Product.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/model/DAOProduct.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/Login.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/controller/LoginForm.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/staff/insert-jsp/insertProduct.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/staff/jsp/displayProductDetail.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/controller/ProductController.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/controller/ProductDetailController.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/staff/update-jsp/updateProductDetail.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/model/DAOCustomer.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/controller/CustomerController.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/guest/display/guestProduct.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/WEB-INF/web.xml</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/guest/display/customerRegister.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/staff/update-jsp/updateProduct.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/entity/Category.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/model/DAOProductDetail.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/web/staff/jsp/displayProduct.jsp</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/entity/Customer.java</file>
-            <file>file:/K:/hoctap/Sp25/SWP391/SwpProject-master/SwpProject-master/SwpProject-master/src/java/model/DBCConnection.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-master/web/guest/display/customerRegister.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-master/web/css/styles_guestProductDetail.css</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/SwpProject-master/web/guest/display/guestProductDetail.jsp</file>
         </group>
     </open-files>
 </project-private>
