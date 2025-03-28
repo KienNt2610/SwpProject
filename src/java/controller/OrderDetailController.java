@@ -39,7 +39,7 @@ public class OrderDetailController extends HttpServlet {
                     int pid = Integer.parseInt(request.getParameter("pid"));
                     Vector<OrderDetail> vector = dao.getOrderDetail("select * from [OrderDetail] where OrderId=" + oid + " and ProductId=" + pid);
                     request.setAttribute("vector", vector);
-                    request.getRequestDispatcher("/update-jsp/updateOrderDetail.jsp").forward(request, response);
+                    request.getRequestDispatcher("/staff/update-jsp/updateOrderDetail.jsp").forward(request, response);
                 } else {
                     int OrderId = Integer.parseInt(request.getParameter("OrderId"));
                     int ProductId = Integer.parseInt(request.getParameter("ProductId"));
@@ -54,7 +54,7 @@ public class OrderDetailController extends HttpServlet {
             if (service.equals("insertOrderDetail")) {
                 String submit = request.getParameter("submit");
                 if (submit == null) {
-                    request.getRequestDispatcher("/insert-jsp/insertOrderDetail.jsp").forward(request, response);
+                    request.getRequestDispatcher("/staff/insert-jsp/insertOrderDetail.jsp").forward(request, response);
                 } else {
                     int OrderId = Integer.parseInt(request.getParameter("OrderId"));
                     int ProductId = Integer.parseInt(request.getParameter("ProductId"));
@@ -82,7 +82,7 @@ public class OrderDetailController extends HttpServlet {
                 }
 
                 Vector<OrderDetail> vector = dao.getOrderDetail(sql);
-                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayOrderDetail.jsp");
+                RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayOrderDetail.jsp");
                 request.setAttribute("data", vector);
                 request.setAttribute("title", "OrderDetail manager");
                 dispath.forward(request, response);

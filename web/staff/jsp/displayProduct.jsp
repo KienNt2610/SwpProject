@@ -201,8 +201,7 @@
             <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a></p>
             <p><a href="OrderURL?service=listAllOrder">Order controller</a></p>
             <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a></p>
-            <p><a href="CartURL?service=listAllCart">Cart controller</a></p>
-            <p><a href="CartDetailURL?service=listAllCartDetail">CartDetail controller</a></p>
+            <p><a href="RoleURL?service=listAllRole">Role controller</a></p>
             <p><a href="CategoryURL?service=listAllCategory">Category controller</a></p>
             <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a></p>
         </div>

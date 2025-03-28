@@ -2,14 +2,5 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-    <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>controller.CartController</servlet-class>  <!-- Đảm bảo đúng tên lớp servlet -->
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/CartController</url-pattern>  <!-- Đảm bảo rằng đường dẫn đúng với CartController -->
-    </servlet-mapping>
 
 </web-app>

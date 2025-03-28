@@ -96,7 +96,7 @@ public class OrderController extends HttpServlet {
             if (service.equals("insertOrder")) {
                 String submit = request.getParameter("submit");
                 if (submit == null) {
-                    request.getRequestDispatcher("/insert-jsp/insertOrder.jsp").forward(request, response);
+                    request.getRequestDispatcher("/staff/insert-jsp/insertOrder.jsp").forward(request, response);
                 } else {
                     int CustomerId = Integer.parseInt(request.getParameter("CustomerId"));
                     double TotalPrice = Double.parseDouble(request.getParameter("TotalPrice"));
@@ -131,7 +131,7 @@ public class OrderController extends HttpServlet {
                 }
 
                 Vector<Order> vector = dao.getOrder(sql);
-                RequestDispatcher dispath = request.getRequestDispatcher("/jsp/displayOrder.jsp");
+                RequestDispatcher dispath = request.getRequestDispatcher("/staff/jsp/displayOrder.jsp");
                 request.setAttribute("data", vector);
                 request.setAttribute("title", "Order manager");
                 dispath.forward(request, response);

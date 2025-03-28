@@ -10,33 +10,187 @@
         <title>Product Details</title>
         <!-- Thêm liên kết tới CSS từ template -->
         <link rel="stylesheet" href="css/styles_guestProductDetail.css"> <!-- Đảm bảo đường dẫn đúng -->
+        <style>
+            /* Header Section */
+            .header_section {
+                position: sticky; /* Đặt vị trí sticky để header luôn dính phía trên */
+                top: 0; /* Gắn header ở đầu trang */
+                z-index: 2; /* Đảm bảo header luôn nằm trên sidebar */
+                padding: 15px 0;
+                background-color: white;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .header_section .container-fluid {
+                padding-right: 25px;
+                padding-left: 25px;
+            }
+
+            .navbar-brand {
+                font-family: 'Playfair Display', serif;
+            }
+
+            .navbar-brand span {
+                font-weight: bold;
+                font-size: 32px;
+                color: #000000;
+            }
+
+            .custom_nav-container {
+                padding: 0;
+            }
+
+            .custom_nav-container .navbar-nav {
+                margin-left: auto;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item .nav-link {
+                padding: 5px 20px;
+                color: #131313;
+                text-align: center;
+                text-transform: uppercase;
+                border-radius: 5px;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                font-weight: 700;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item .nav-link svg {
+                width: 17px;
+                height: auto;
+                fill: #000000;
+                margin-bottom: 2px;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item:hover .nav-link,
+            .custom_nav-container .navbar-nav .nav-item.active .nav-link {
+                color: #f7444e;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item:hover .nav-link svg,
+            .custom_nav-container .navbar-nav .nav-item.active .nav-link svg {
+                fill: #f7444e;
+            }
+
+            .custom_nav-container .nav_search-btn {
+                width: 35px;
+                height: 35px;
+                padding: 0;
+                border: none;
+                color: #000000;
+            }
+
+            .custom_nav-container .nav_search-btn:hover {
+                color: #f7444e;
+            }
+
+            .custom_nav-container .navbar-toggler {
+                outline: none;
+            }
+
+            .custom_nav-container .navbar-toggler {
+                padding: 0;
+                width: 37px;
+                height: 42px;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+            }
+
+            .custom_nav-container .navbar-toggler span {
+                display: block;
+                width: 35px;
+                height: 4px;
+                background-color: #000000;
+                margin: 7px 0;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                position: relative;
+                border-radius: 5px;
+                transition: all 0.3s;
+            }
+
+            .custom_nav-container .navbar-toggler span::before,
+            .custom_nav-container .navbar-toggler span::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #000000;
+                top: -10px;
+                border-radius: 5px;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+            }
+
+            .custom_nav-container .navbar-toggler span::after {
+                top: 10px;
+            }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] span {
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] span::before,
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+                top: 0;
+            }
+                        /* Footer Styling */
+            .footer {
+                background-color: #f1f1f1;
+                text-align: center;
+                padding: 10px;
+                position: relative;
+                width: 100%;
+                margin-top: auto; /* Đảm bảo footer luôn nằm dưới cùng */
+            }
+        </style>
     </head>
     <body>
         <div class="super_container">
             <!-- Header -->
-            <header class="header" style="display: none;">
-                <div class="header_main">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
-                                <div class="header_search">
-                                    <div class="header_search_content">
-                                        <div class="header_search_form_container">
-                                            <form action="#" class="header_search_form clearfix">
-                                                <div class="custom_dropdown">
-                                                    <div class="custom_dropdown_list"> <span class="custom_dropdown_placeholder clc">All Categories</span> <i class="fas fa-chevron-down"></i>
-                                                        <ul class="custom_list clc">
-                                                            <li><a class="clc" href="#">All Categories</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <header class="header_section">
+                <div class="container">
+                    <nav class="navbar navbar-expand-lg custom_nav-container">
+                        <a class="navbar-brand" href="index.html">
+                            <img width="100" src="images/logo.png" alt="SportGear Shop"/>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class=""> </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="index_1.html">Trang chủ</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> Sản phẩm <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="about.html">Bóng đá</a></li>
+                                        <li><a href="testimonial.html">Cầu lông</a></li>
+                                        <li><a href="about.html">Bóng bàn</a></li>
+                                        <li><a href="testimonial.html">Tennis</a></li>
+                                        <li><a href="about.html">Phụ kiện thể thao</a></li>
+                                        <li><a href="testimonial.html">Quần áo</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact.html">Liên Hệ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="Login.jsp" class="nav-link btn btn-primary">Đăng Nhập</a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
+                    </nav>
                 </div>
             </header>
 
@@ -56,13 +210,7 @@
                         </div>
                         <div class="col-lg-6 order-3">
                             <div class="product_description">
-                                <nav>
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index_1.html">Trang chủ</a></li>
-                                        <li class="breadcrumb-item"><a href="ProductURL?service=guestProduct">Tất cả sản phẩm</a></li>
-                                        <li class="breadcrumb-item active">${categoryName}</li>
-                                    </ol>
-                                </nav>
+
 
                                 <div class="product_name">${productName}</div>
                                 <div class="product-rating">
@@ -123,5 +271,9 @@
                 </div>
             </div>
         </div>
+                                                           <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 SPORTGEARSHOP</p>
+        </footer>
     </body>
 </html>

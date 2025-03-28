@@ -106,7 +106,7 @@ public class Product {
         this.discontinued = discontinued;
     }
 
-    public boolean isHot() { 
+    public boolean isHot() {
         return isHot;
     }
 
@@ -136,6 +136,10 @@ public class Product {
 
     public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
+    }
+
+    public double getTotalPrice() {
+        return this.quantity * this.price;
     }
 
     @Override
