@@ -197,13 +197,13 @@
         <!-- Sidebar Menu -->
         <div class="sidebar">
             <h2>Menu</h2>
-            <p><a href="ProductURL?service=listAllProduct">Product controller</a></p>
-            <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a></p>
-            <p><a href="OrderURL?service=listAllOrder">Order controller</a></p>
-            <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a></p>
-            <p><a href="RoleURL?service=listAllRole">Role controller</a></p>
-            <p><a href="CategoryURL?service=listAllCategory">Category controller</a></p>
-            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a></p>
+            <p><a href="ProductURL?service=listAllProduct">Quản lý sản phẩm</a></p>
+            <p><a href="ProductDetailURL?service=listAllProductDetail">Quản lý chi tiết sản phẩm</a></p>
+            <p><a href="OrderURL?service=listAllOrder">Quản lý đơn hàng</a></p>
+            <p><a href="OrderDetailURL?service=listAllOrderDetail">Quản lý chi tiết đơn hàng</a></p>
+            <p><a href="RoleURL?service=listAllRole">Quản lý Vai trò</a></p>
+            <p><a href="CategoryURL?service=listAllCategory">Quản lý mặt hàng</a></p>
+            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">Quản lý địa chỉ khách hàng</a></p>
         </div>
 
         <!-- Main Content Area -->

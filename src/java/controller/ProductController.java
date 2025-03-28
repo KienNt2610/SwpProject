@@ -36,7 +36,7 @@ public class ProductController extends HttpServlet {
 
                 // Thêm điều kiện lọc theo categoryId
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
-                    sql += " AND CategoryId = '" + categoryId + "'"; // Lọc theo CategoryId
+                    sql += " AND CategoryId = '" + categoryId + "'";
                 }
 
                 Vector<Product> vector = dao.getProduct(sql);
@@ -45,14 +45,15 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("title", "Filtered Product List");
                 dispath.forward(request, response);
             }
+
             if (service.equalsIgnoreCase("sort")) {
                 String sortBy = request.getParameter("sortBy");
-                String categoryId = request.getParameter("categoryId");  // Giữ lại categoryId khi sort
+                String categoryId = request.getParameter("categoryId");
 
-                String sql = "SELECT * FROM Product WHERE 1=1"; // Điều kiện mặc định
+                String sql = "SELECT * FROM Product WHERE 1=1";
 
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
-                    sql += " AND CategoryId = " + Integer.parseInt(categoryId); // Giữ filter theo categoryId
+                    sql += " AND CategoryId = " + Integer.parseInt(categoryId);
                 }
 
                 if ("priceAsc".equalsIgnoreCase(sortBy)) {
@@ -110,12 +111,11 @@ public class ProductController extends HttpServlet {
                         e.printStackTrace();
                     }
 
-                    // Mặc định SoldQuantity = 0 và isHot = false
                     int SoldQuantity = 0;
                     boolean isHot = false;
                     boolean discontinued = (Integer.parseInt(Discontinued) == 1);
 
-                    Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, discontinued, isHot, SoldQuantity, CreateTime, SalePrice);
+                    Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, discontinued, isHot, SoldQuantity, CreateTime, SalePrice, submit);
                     int n = dao.updateProduct(product);
                     response.sendRedirect("ProductURL?service=listAllProduct");
                 }
@@ -147,12 +147,11 @@ public class ProductController extends HttpServlet {
                         e.printStackTrace();
                     }
 
-                    // Mặc định SoldQuantity = 0, isHot = false
                     int SoldQuantity = 0;
                     boolean isHot = false;
                     boolean discontinued = (Integer.parseInt(Discontinued) == 1);
 
-                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, discontinued, isHot, SoldQuantity, CreateTime, SalePrice);
+                    Product product = new Product(ProductName, CategoryId, Price, Quantity, Description, discontinued, isHot, SoldQuantity, CreateTime, SalePrice, submit);
                     int n = dao.addProduct(product);
                     response.sendRedirect("ProductURL?service=listAllProduct");
                 }
@@ -219,7 +218,7 @@ public class ProductController extends HttpServlet {
                 }
 
                 if (pnameguest != null && !pnameguest.trim().isEmpty()) {
-                    sql += " AND ProductName LIKE '%" + pnameguest + "%'";  // Tìm kiếm theo tên sản phẩm
+                    sql += " AND ProductName LIKE '%" + pnameguest + "%'";
                 }
 
                 // Logic sắp xếp
@@ -235,14 +234,14 @@ public class ProductController extends HttpServlet {
 
                 // Thực hiện câu lệnh SQL
                 Vector<Product> productList = dao.getProduct(sql);
-                Vector<Category> categoryList = dao.getCategories(); // Lấy danh mục cho việc lọc
+                Vector<Category> categoryList = dao.getCategories();
 
                 // Truyền dữ liệu vào request
                 request.setAttribute("data", productList);
                 request.setAttribute("categoryList", categoryList);
                 request.setAttribute("selectedCategoryguest", categoryId);
-                request.setAttribute("isHot", isHot);  // Truyền giá trị lọc isHot vào JSP
-                request.setAttribute("pnameguest", pnameguest); // Truyền giá trị tìm kiếm pname vào JSP
+                request.setAttribute("isHot", isHot);
+                request.setAttribute("pnameguest", pnameguest);
 
                 // Chuyển đến trang JSP
                 RequestDispatcher dispath = request.getRequestDispatcher("/guest/display/guestProduct.jsp");

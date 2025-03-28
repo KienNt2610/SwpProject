@@ -210,43 +210,6 @@
                 box-shadow: 0 0 5px rgba(247, 68, 78, 0.3);
             }
 
-            /* Form lọc sản phẩm hot */
-            .sidebar label {
-                text-align: left; /* Căn trái */
-                font-weight: bold; /* Làm đậm font chữ */
-                font-size: 16px; /* Điều chỉnh kích thước font chữ */
-                margin-bottom: 8px; /* Khoảng cách dưới label */
-                color: #333; /* Màu chữ tối */
-            }
-
-            /* Đảm bảo input và button không bị lệch */
-            .sidebar select, .sidebar button {
-                width: 100%; /* Đảm bảo chúng có cùng chiều rộng */
-                padding: 10px 15px;
-                margin-bottom: 10px; /* Khoảng cách giữa các phần tử */
-                font-size: 16px;
-                color: #333;
-                border-radius: 8px;
-                border: 1px solid #ddd;
-                background-color: #ffffff;
-                transition: background-color 0.3s ease, border 0.3s ease;
-            }
-
-            .sidebar select:hover, .sidebar button:hover {
-                background-color: #f1f1f1;
-                border: 1px solid #f7444e;
-            }
-
-            .sidebar select:focus, .sidebar button:focus {
-                outline: none;
-                box-shadow: 0 0 5px rgba(247, 68, 78, 0.3);
-            }
-
-            /* Đảm bảo tất cả các phần tử form trong sidebar căn chỉnh hợp lý */
-            .sidebar form {
-                margin-bottom: 20px;
-            }
-
             /* Main Content */
 
             .product-card {
@@ -501,136 +464,6 @@
                 background-color: #d93d3b;
             }
 
-            /* Footer Styles */
-            footer {
-                background-color: #f8f9fa; /* Màu nền sáng cho footer */
-                padding: 40px 0; /* Thêm khoảng cách trên và dưới */
-                color: #333; /* Màu chữ tối */
-                font-family: Arial, sans-serif; /* Chọn font chữ dễ đọc */
-            }
-
-            footer .container {
-                max-width: 1140px; /* Giới hạn chiều rộng */
-                margin: 0 auto; /* Căn giữa */
-            }
-
-            footer .row {
-                display: flex;
-                flex-wrap: wrap; /* Cho phép các phần tử trong footer tự động xuống dòng khi không đủ chỗ */
-            }
-
-            footer .col-md-4,
-            footer .col-md-8 {
-                padding: 0 15px; /* Thêm padding cho các cột */
-            }
-
-            footer .logo_footer {
-                margin-bottom: 20px; /* Khoảng cách dưới logo */
-            }
-
-            footer .logo_footer img {
-                max-width: 100%; /* Đảm bảo logo luôn nằm trong vùng hiển thị */
-            }
-
-            footer .information_f {
-                margin-top: 20px;
-            }
-
-            footer .information_f p {
-                font-size: 14px;
-                margin: 5px 0; /* Thêm khoảng cách giữa các dòng */
-            }
-
-            footer .widget_menu h3 {
-                font-size: 18px;
-                margin-bottom: 15px; /* Khoảng cách dưới tiêu đề widget */
-                color: #333;
-                font-weight: bold;
-            }
-
-            footer .widget_menu ul {
-                list-style-type: none; /* Loại bỏ các dấu chấm đầu dòng */
-                padding: 0;
-            }
-
-            footer .widget_menu ul li {
-                margin-bottom: 10px;
-            }
-
-            footer .widget_menu ul li a {
-                color: #555; /* Màu chữ của các liên kết */
-                text-decoration: none;
-                font-size: 14px;
-            }
-
-            footer .widget_menu ul li a:hover {
-                color: #f7444e; /* Thay đổi màu khi hover */
-            }
-
-            footer .col-md-5 .form_sub {
-                background-color: #fff;
-                padding: 15px;
-                border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ cho form */
-            }
-
-            footer .col-md-5 .form_sub input[type="email"] {
-                width: calc(100% - 150px); /* Chiếm hết chiều rộng trừ button */
-                padding: 10px;
-                margin-right: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-
-            footer .col-md-5 .form_sub input[type="submit"] {
-                width: 130px;
-                padding: 10px;
-                background-color: #f7444e; /* Màu nền đỏ cho button */
-                border: none;
-                color: white;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-
-            footer .col-md-5 .form_sub input[type="submit"]:hover {
-                background-color: #d63636; /* Đổi màu khi hover */
-            }
-
-            footer .col-md-8 .row {
-                margin-top: 30px; /* Khoảng cách giữa các phần */
-            }
-
-            footer .col-md-8 .row .col-md-6 {
-                margin-bottom: 20px;
-            }
-
-            footer .col-md-8 .row .col-md-6 .widget_menu ul li a {
-                color: #666;
-            }
-
-            footer .col-md-8 .row .col-md-6 .widget_menu ul li a:hover {
-                color: #f7444e;
-            }
-
-            @media screen and (max-width: 768px) {
-                footer .row {
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                footer .col-md-4, footer .col-md-8 {
-                    width: 100%;
-                    padding: 0;
-                }
-
-                footer .widget_menu ul li {
-                    text-align: center;
-                }
-            }
-
-
-
-
         </style>
     </head>
     <body>
@@ -739,8 +572,6 @@
             </form>
         </div>
 
-
-
         <div class="main-content">
             <div class="container py-5">
                 <div class="row justify-content-start">
@@ -748,11 +579,12 @@
                         if (productList != null && !productList.isEmpty()) {
                             for (Product product : productList) {
                     %>
-                    <!-- Cấu trúc lại mỗi box để hiển thị rõ ràng và không bị che khuất -->
+ 
                     <div class="col-md-12 col-lg-4 col-xl-3 mb-4">
                         <div class="product-card">
                             <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                <img src="path/to/your/placeholder-image.jpg" class="w-100" />
+                                <!-- Hiển thị ảnh sản phẩm -->
+                                <img src="<%= product.getImage() %>" class="w-100" />
                             </div>
                             <div class="product-info">
                                 <h5><%= product.getProductName() %></h5>

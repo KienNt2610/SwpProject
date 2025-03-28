@@ -74,6 +74,7 @@ public class ProductDetailController extends HttpServlet {
     private void handleGuestProductDetail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String productId = request.getParameter("productId");
+                        request.setAttribute("productId", productId);
 
         if (productId != null && !productId.isEmpty()) {
             try (Connection connection = getConnection()) {
@@ -86,7 +87,6 @@ public class ProductDetailController extends HttpServlet {
                         String name = resultSet.getString("ProductName");
                         String description = resultSet.getString("Description");
                         double price = resultSet.getDouble("Price");
-
                         request.setAttribute("productName", name);
                         request.setAttribute("productDescription", description);
                         request.setAttribute("productPrice", price);

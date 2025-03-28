@@ -15,9 +15,9 @@
         <style>
             /* Header Section */
             .header_section {
-                position: sticky; /* Đặt vị trí sticky để header luôn dính phía trên */
-                top: 0; /* Gắn header ở đầu trang */
-                z-index: 2; /* Đảm bảo header luôn nằm trên sidebar */
+                position: sticky; 
+                top: 0;
+                z-index: 2;
                 padding: 15px 0;
                 background-color: white;
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -233,7 +233,7 @@
                                 <p>Đăng ký tài khoản mới! <a href="/SwpProject/guest/display/customerRegister.jsp">Đăng ký</a></p>
                             </form>
 
-                            <!-- Hiển thị thông báo lỗi nếu đăng nhập không thành công -->
+                        
                             <c:if test="${not empty errorMessage}">
                                 <div class="alert alert-danger">
                                     ${errorMessage}

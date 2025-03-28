@@ -28,22 +28,26 @@ public class DAOProduct extends DBCConnection {
                 + "           ,[SoldQuantity]\n"
                 + "           ,[CreateTime]\n"
                 + "           ,[SalePrice]\n"
-                + "           ,[IsHot])\n"
+                + "           ,[IsHot]\n"
+                + "           ,[Image])\n" // Added image column
                 + "     VALUES\n"
-                + "           ('" + product.getProductName() + "',"
-                + product.getCategoryId() + ","
-                + product.getPrice() + ","
-                + product.getQuantity() + ",'"
-                + product.getDescription() + "'," + (product.isDiscontinued() ? 1 : 0) + ","
-                + product.getSoldQuantity() + ","
-                + (product.getCreateTime() != null ? "'" + product.getCreateTime() + "'" : "NULL") + ","
-                + product.getSalePrice() + ","
-                + (product.isHot()? 1 : 0) + ")";
+                + "           (?,?,?,?,?,?,?,?,?,?,?);";
         try {
-            Statement state = conn.createStatement();
-            n = state.executeUpdate(sql);
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, product.getProductName());
+            pre.setInt(2, product.getCategoryId());
+            pre.setDouble(3, product.getPrice());
+            pre.setInt(4, product.getQuantity());
+            pre.setString(5, product.getDescription());
+            pre.setInt(6, product.isDiscontinued() ? 1 : 0);
+            pre.setInt(7, product.getSoldQuantity());
+            pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
+            pre.setDouble(9, product.getSalePrice());
+            pre.setInt(10, product.isHot() ? 1 : 0);
+            pre.setString(11, product.getImage());  // Setting image path in the query
+            n = pre.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProduct.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return n;
     }
@@ -61,9 +65,10 @@ public class DAOProduct extends DBCConnection {
                 + "           ,[SoldQuantity]\n"
                 + "           ,[CreateTime]\n"
                 + "           ,[SalePrice]\n"
-                + "           ,[IsHot])\n"
+                + "           ,[IsHot]\n"
+                + "           ,[Image])\n" // Added Image column
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,?,?);";
+                + "           (?,?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, product.getProductName());
@@ -75,7 +80,8 @@ public class DAOProduct extends DBCConnection {
             pre.setInt(7, product.getSoldQuantity());
             pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
             pre.setDouble(9, product.getSalePrice());
-            pre.setInt(10, product.isHot()? 1 : 0);
+            pre.setInt(10, product.isHot() ? 1 : 0);
+            pre.setString(11, product.getImage());  // Adding image path in prepared statement
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -127,7 +133,7 @@ public class DAOProduct extends DBCConnection {
     public int updateProduct(Product product) {
         int n = 0;
         String sql = "UPDATE [dbo].[Product]\n"
-                + "   SET [ProductName] = ? ,[CategoryId] = ? ,[Price] = ? ,[Quantity] = ? ,[Description] = ? ,[Discontinued] = ? ,[SoldQuantity] = ? ,[CreateTime] = ? ,[SalePrice] = ? ,[IsHot] = ?\n"
+                + "   SET [ProductName] = ? ,[CategoryId] = ? ,[Price] = ? ,[Quantity] = ? ,[Description] = ? ,[Discontinued] = ? ,[SoldQuantity] = ? ,[CreateTime] = ? ,[SalePrice] = ? ,[IsHot] = ? ,[Image] = ?\n" // Added Image
                 + " WHERE ProductId=?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -140,8 +146,9 @@ public class DAOProduct extends DBCConnection {
             pre.setInt(7, product.getSoldQuantity());
             pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
             pre.setDouble(9, product.getSalePrice());
-            pre.setInt(10, product.isHot()? 1 : 0);
-            pre.setInt(11, product.getProductId());
+            pre.setInt(10, product.isHot() ? 1 : 0);
+            pre.setString(11, product.getImage());  // Setting image
+            pre.setInt(12, product.getProductId());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -167,8 +174,10 @@ public class DAOProduct extends DBCConnection {
                 java.sql.Timestamp createTime = rs.getTimestamp("CreateTime");
                 double SalePrice = rs.getDouble("SalePrice");
                 boolean IsHot = (rs.getInt("IsHot") == 1);
+                String Image = rs.getString("Image"); // Get image path
 
-                Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, Discontinued, IsHot, SoldQuantity, createTime, SalePrice);
+                // Pass Image in the product constructor
+                Product product = new Product(ProductId, ProductName, CategoryId, Price, Quantity, Description, Discontinued, IsHot, SoldQuantity, createTime, SalePrice, Image);
                 vector.add(product);
             }
         } catch (SQLException ex) {

@@ -8,14 +8,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Product Details</title>
-        <!-- Thêm liên kết tới CSS từ template -->
-        <link rel="stylesheet" href="css/styles_guestProductDetail.css"> <!-- Đảm bảo đường dẫn đúng -->
+    
+        <link rel="stylesheet" href="css/styles_guestProductDetail.css"> 
         <style>
             /* Header Section */
             .header_section {
-                position: sticky; /* Đặt vị trí sticky để header luôn dính phía trên */
-                top: 0; /* Gắn header ở đầu trang */
-                z-index: 2; /* Đảm bảo header luôn nằm trên sidebar */
+                position: sticky; 
+                top: 0; 
+                z-index: 2; 
                 padding: 15px 0;
                 background-color: white;
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -150,7 +150,7 @@
                 padding: 10px;
                 position: relative;
                 width: 100%;
-                margin-top: auto; /* Đảm bảo footer luôn nằm dưới cùng */
+                margin-top: auto; 
             }
         </style>
     </head>
@@ -235,8 +235,8 @@
                                 <div>
                                     <div>
                                         <form action="CartServlet" method="GET">
-                                            <input type="hidden" name="service" value="addToCart"> <!-- Thông báo servlet là 'addToCart' -->
-                                            <input type="hidden" name="productId" value="${product.productId}"> <!-- Truyền productId của sản phẩm -->
+                                            <input type="hidden" name="service" value="addToCart"> 
+                                            <input type="hidden" name="productId" value="${productId}"> 
 
                                             <label for="color">Chọn màu:</label>
                                             <select id="color" name="color">
@@ -259,9 +259,6 @@
                                             <button type="button" class="btn btn-success shop-button">Mua ngay</button>
                                         </form>
 
-
-
-
                                     </div>
 
                                 </div>
@@ -271,7 +268,7 @@
                 </div>
             </div>
         </div>
-                                                           <!-- Footer -->
+                                                           
         <footer class="footer">
             <p>&copy; 2025 SPORTGEARSHOP</p>
         </footer>
