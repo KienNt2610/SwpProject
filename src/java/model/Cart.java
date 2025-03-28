@@ -1,59 +1,55 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import entity.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Kien
- */
 public class Cart {
 
-    private List<Product> items;
+    private List<CartItem> items;
 
     public Cart() {
-        items = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
-    public Cart(List<Product> items) {
-        this.items = items;
+    // Thêm sản phẩm vào giỏ
+    public void addItem(Product product, int quantity) {
+        for (CartItem item : items) {
+            if (item.getBook().getProductId() == product.getProductId()) {
+                // Nếu sản phẩm đã có trong giỏ thì tăng số lượng
+                item.setQuantity(item.getQuantity() + quantity);
+                return;
+            }
+        }
+        // Nếu sản phẩm chưa có trong giỏ, thêm sản phẩm mới
+        items.add(new CartItem(product, quantity));
     }
 
-    public List<Product> getItems() {
-        return items;
+    // Xóa sản phẩm khỏi giỏ
+    public void removeItem(int productId) {
+        items.removeIf(item -> item.getBook().getProductId() == productId);
     }
 
-    public void setItems(List<Product> items) {
-        this.items = items;
+    // Cập nhật số lượng sản phẩm trong giỏ
+    public void updateItemQuantity(int productId, int quantity) {
+        for (CartItem item : items) {
+            if (item.getBook().getProductId() == productId) {
+                item.setQuantity(quantity);
+                break;
+            }
+        }
     }
 
-    public void addItem(Product product) {
-        items.add(product);
-    }
-
-    public void removeItem(Product product) {
-        items.remove(product);
-    }
-
-    public double getTotalAmount() {
+    // Tính tổng tiền giỏ hàng
+    public double getTotalMoney() {
         double total = 0;
-        for (Product product : items) {
-            total += product.getTotalPrice();
+        for (CartItem item : items) {
+            total += item.getTotalPrice();
         }
         return total;
     }
 
-    public void printCartDetails() {
-        System.out.println("Cart Details:");
-        for (Product product : items) {
-            System.out.println("Product: " + product.getProductName() + ", Price: " + product.getPrice() + ", Quantity: " + product.getQuantity() + ", Total: " + product.getTotalPrice());
-        }
-        System.out.println("Total Cart Amount: " + getTotalAmount());
+    public List<CartItem> getItems() {
+        return items;
     }
-
 }
