@@ -24,7 +24,7 @@
             /* Cải thiện giao diện cho các form tìm kiếm và lọc */
             .sidebar {
                 position: fixed;
-                top: 150px;  /* Thêm khoảng cách từ trên cùng để không bị đè lên header */
+                top: 150px;  
                 left: 0;
                 bottom: 0;
                 width: 250px;
@@ -33,20 +33,20 @@
                 padding-top: 20px;
                 padding-left: 10px;
                 padding-right: 10px;
-                z-index: 2;  /* Đảm bảo sidebar luôn ở trên phần nội dung */
-                height: calc(100% - 60px); /* Đảm bảo sidebar có chiều cao đầy đủ, tránh che header */
+                z-index: 2;  
+                height: calc(100% - 60px);
             }
 
             .content {
-                margin-left: 250px; /* Đẩy nội dung sang phải để có chỗ cho sidebar */
+                margin-left: 250px; 
                 padding: 20px;
-                padding-top: 60px;  /* Thêm padding-top để nội dung không bị che bởi header */
+                padding-top: 60px;  
             }
 
             .header_section {
                 position: sticky;
                 top: 0;
-                z-index: 3;  /* Đảm bảo header luôn nằm trên sidebar */
+                z-index: 3;  
                 padding: 15px 0;
                 background-color: white;
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);

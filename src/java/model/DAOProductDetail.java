@@ -83,45 +83,43 @@ public class DAOProductDetail extends DBCConnection {
 
     // Get a list of ProductDetail based on a SQL query
     public Vector<ProductDetail> getProductDetail(String sql) {
-        Vector<ProductDetail> vector = new Vector<ProductDetail>();
+        Vector<ProductDetail> productDetails = new Vector<>();
         try {
-            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs = state.executeQuery(sql);
-
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int DetailId = rs.getInt("DetailId");
+                int detailId = rs.getInt("DetailId");
+                int productId = rs.getInt("ProductId");
+                String color = rs.getString("Color");
+                String size = rs.getString("Size");
+                productDetails.add(new ProductDetail(detailId, productId, color, size));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return productDetails;
+    }
+
+    // Lấy chi tiết sản phẩm theo DetailId
+    public ProductDetail getProductDetailById(int detailId) {
+        ProductDetail productDetail = null;
+        String sql = "SELECT * FROM ProductDetail WHERE DetailId = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, detailId);
+            ResultSet rs = pre.executeQuery();
+
+            if (rs.next()) {
                 int ProductId = rs.getInt("ProductId");
                 String Color = rs.getString("Color");
                 String Size = rs.getString("Size");
-                ProductDetail productDetail = new ProductDetail(DetailId, ProductId, Color, Size);
-                vector.add(productDetail);
+                productDetail = new ProductDetail(detailId, ProductId, Color, Size);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProductDetail.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return vector;
+        return productDetail;
     }
-    // Lấy chi tiết sản phẩm theo DetailId
-public ProductDetail getProductDetailById(int detailId) {
-    ProductDetail productDetail = null;
-    String sql = "SELECT * FROM ProductDetail WHERE DetailId = ?";
-    try {
-        PreparedStatement pre = conn.prepareStatement(sql);
-        pre.setInt(1, detailId);
-        ResultSet rs = pre.executeQuery();
-
-        if (rs.next()) {
-            int ProductId = rs.getInt("ProductId");
-            String Color = rs.getString("Color");
-            String Size = rs.getString("Size");
-            productDetail = new ProductDetail(detailId, ProductId, Color, Size);
-        }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    }
-    return productDetail;
-}
-
 
     public static void main(String[] args) {
         DAOProductDetail dao = new DAOProductDetail();

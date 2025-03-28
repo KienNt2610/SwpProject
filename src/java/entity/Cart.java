@@ -6,13 +6,17 @@ public class Cart {
     private String productName; // Name of the product
     private double price;       // Price of the product
     private int quantity;       // Quantity of the product in the cart
+    private String color;       // Color of the product
+    private String size;        // Size of the product
 
     // Constructor to initialize a cart item
-    public Cart(int productId, String productName, double price, int quantity) {
+    public Cart(int productId, String productName, double price, int quantity, String color, String size) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
+        this.color = color;
+        this.size = size;
     }
 
     // Getter and Setter for quantity
@@ -42,9 +46,17 @@ public class Cart {
         return price;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
     // Optional: Method to print information about the cart item (useful for debugging)
     @Override
     public String toString() {
-        return "Cart [ProductId=" + productId + ", ProductName=" + productName + ", Price=" + price + ", Quantity=" + quantity + ", TotalPrice=" + getTotalPrice() + "]";
+        return "Cart [ProductId=" + productId + ", ProductName=" + productName + ", Price=" + price + ", Quantity=" + quantity + ", Color=" + color + ", Size=" + size + ", TotalPrice=" + getTotalPrice() + "]";
     }
 }

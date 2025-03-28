@@ -193,74 +193,72 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>Menu</h2>
-            <p><a href="ProductURL?service=listAllProduct">Product controller</a></p>
-            <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a></p>
-            <p><a href="OrderURL?service=listAllOrder">Order controller</a></p>
-            <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a></p>
-            <p><a href="CartURL?service=listAllCart">Cart controller</a></p>
-            <p><a href="CartDetailURL?service=listAllCartDetail">CartDetail controller</a></p>
-            <p><a href="CategoryURL?service=listAllCategory">Category controller</a></p>
-            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a></p>
+            <p><a href="ProductURL?service=listAllProduct">Quản lý sản phẩm</a></p>
+            <p><a href="ProductDetailURL?service=listAllProductDetail">Quản lý sản chi tiết sản phẩm</a></p>
+            <p><a href="OrderURL?service=listAllOrder">Quản lý đơn hàng</a></p>
+            <p><a href="OrderDetailURL?service=listAllOrderDetail">Quản lý chi tiết đơn hàng</a></p>
+            <p><a href="CategoryURL?service=listAllCategory">Quản lý danh mục</a></p>
+            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">Quản lý địa chỉ khách hàng</a></p>
         </div>
         <!-- Header Section -->
         <header class="header_section">
             <div class="container">
                 <img src="images/logo.png" alt="SportGear Shop Logo">
-                <h1>Update Product</h1>
+                <h1>Cập nhật sản phẩm</h1>
             </div>
         </header>
         <form action="ProductURL" method="post" onsubmit="return updateSalePrice()">
             <input type="hidden" name="service" value="updateProduct">
             <table>
-                <caption>Update Product</caption>
+                
                 <tr>
-                    <td><label for="ProductId">ProductId</label></td>
+                    <td><label for="ProductId">Id sản phẩm</label></td>
                     <td><input type="number" name="ProductId" id="ProductId" value="<%= product.getProductId() %>" readonly></td>
                 </tr>
                 <tr>
-                    <td><label for="ProductName">ProductName</label></td>
+                    <td><label for="ProductName">Tên sản phẩm</label></td>
                     <td><input type="text" name="ProductName" id="ProductName" value="<%= product.getProductName() %>" required></td>
                 </tr>
                 <tr>
-                    <td><label for="CategoryId">CategoryId</label></td>
+                    <td><label for="CategoryId">Danh mục sản phẩm</label></td>
                     <td><input type="number" name="CategoryId" id="CategoryId" value="<%= product.getCategoryId() %>" required></td>
                 </tr>
                 <tr>
-                    <td><label for="Price">Price</label></td>
+                    <td><label for="Price">Giá gốc</label></td>
                     <td><input type="number" name="Price" id="Price" value="<%= product.getPrice() %>" onchange="updateSalePrice()" required></td>
                 </tr>
                 <tr>
-                    <td><label for="SalePrice">Sale Price</label></td>
+                    <td><label for="SalePrice">Giá sale</label></td>
                     <td><input type="text" name="SalePrice" id="SalePrice" value="<%= product.getSalePrice() %>" readonly required></td>
                 </tr>
                 <tr>
-                    <td><label for="Quantity">Quantity</label></td>
+                    <td><label for="Quantity">Số lượng</label></td>
                     <td><input type="number" name="Quantity" id="Quantity" value="<%= product.getQuantity() %>" required></td>
                 </tr>
                 <tr>
-                    <td><label for="Description">Description</label></td>
+                    <td><label for="Description">Mô tả sản phẩm</label></td>
                     <td><textarea name="Description" id="Description" required><%= product.getDescription() %></textarea></td>
                 </tr>
                 <tr>
-                    <td><label for="Discontinued">Discontinued</label></td>
+                    <td><label for="Discontinued">Trạng thái sản phẩm</label></td>
                     <td>
-                        <input type="radio" name="Discontinued" value="1" <%= product.isDiscontinued() ? "checked" : "" %>> Continued
-                        <input type="radio" name="Discontinued" value="0" <%= !product.isDiscontinued() ? "checked" : "" %>> Discontinued
+                        <input type="radio" name="Discontinued" value="1" <%= product.isDiscontinued() ? "checked" : "" %>> Còn bán
+                        <input type="radio" name="Discontinued" value="0" <%= !product.isDiscontinued() ? "checked" : "" %>> Đã ngừng bán
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="CreateTime">Create Time</label></td>
+                    <td><label for="CreateTime">Thời gian cập nhật sản phẩm</label></td>
                     <td><input type="datetime-local" name="CreateTime" id="CreateTime" value="<%= product.getCreateTime() != null ? product.getCreateTime().toLocalDateTime().toString() : "" %>" required></td>
                 </tr>
                 <tr>
-                    <td><input type="hidden" name="SoldQuantity" value="0"></td> 
+                    <td><input type="hidden" name="Số lượng bán ra" value="0"></td> 
                 </tr>
                 <tr>
-                    <td><input type="hidden" name="isHot" value="false"></td> 
+                    <td><input type="hidden" name="Hot" value="false"></td> 
                 </tr>
 
                 <tr>
-                    <td><input type="submit" value="Update Product" name="submit"></td>
+                    <td><input type="submit" value="Xác nhận" name="submit"></td>
                     <td><input type="reset" value="Clear"></td>
                 </tr>
             </table>

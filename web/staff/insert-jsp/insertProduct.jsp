@@ -200,14 +200,12 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <h2>Menu</h2>
-            <p><a href="ProductURL?service=listAllProduct">Product controller</a></p>
-            <p><a href="ProductDetailURL?service=listAllProductDetail">ProductDetail controller</a></p>
-            <p><a href="OrderURL?service=listAllOrder">Order controller</a></p>
-            <p><a href="OrderDetailURL?service=listAllOrderDetail">OrderDetail controller</a></p>
+            <p><a href="ProductURL?service=listAllProduct">Quản lý sản phẩm</a></p>
+            <p><a href="ProductDetailURL?service=listAllProductDetail">Quản lý chi tiết sản phẩm</a></p>
+            <p><a href="OrderURL?service=listAllOrder">Quản lý đơn hàng</a></p>
+            <p><a href="OrderDetailURL?service=listAllOrderDetail">Quản lý chi tiết đơn hàng</a></p>
             <p><a href="CartURL?service=listAllCart">Cart controller</a></p>
-            <p><a href="CartDetailURL?service=listAllCartDetail">CartDetail controller</a></p>
-            <p><a href="CategoryURL?service=listAllCategory">Category controller</a></p>
-            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">CustomerAddress controller</a></p>
+            <p><a href="CustomerAddressURL?service=listAllCustomerAddress">Quản lý địa chỉ khách hàng</a></p>
         </div>
 
         <!-- Header Section -->
@@ -217,7 +215,7 @@
                     <a class="navbar-brand" href="index.html">
                         <img width="100" src="images/logo.png" alt="SportGear Shop" />
                     </a>
-                    <h1>Insert New Product</h1>
+                    <h1>Thêm sản phẩm mới</h1>
                 </nav>
             </div>
         </header>
@@ -227,13 +225,13 @@
             <form action="ProductURL" method="post" onsubmit="return validateForm()">
                 <input type="hidden" name="service" value="insertProduct">
                 <table>
-                    <caption>Insert Product</caption>
+   
                     <tr>
-                        <td><label for="ProductName">ProductName</label></td>
+                        <td><label for="ProductName">Tên sản phẩm</label></td>
                         <td><input type="text" name="ProductName" id="ProductName" required></td>
                     </tr>
                     <tr>
-                        <td><label for="CategoryId">CategoryId</label></td>
+                        <td><label for="CategoryId">Danh mục</label></td>
                         <td>
                             <select name="CategoryId" id="CategoryId" required>
                                 <option value="1">Bóng đá</option>
@@ -246,45 +244,45 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="Price">Price</label></td>
+                        <td><label for="Price">Giá gốc</label></td>
                         <td><input type="number" name="Price" id="Price" onchange="validateForm()" required></td>
                     </tr>
                     <tr>
-                        <td><label for="SalePrice">Sale Price</label></td>
+                        <td><label for="SalePrice">Giá sale</label></td>
                         <td><input type="text" name="SalePrice" id="SalePrice" readonly required></td>
                     </tr>
                     <tr>
-                        <td><label for="Quantity">Quantity</label></td>
+                        <td><label for="Quantity">Số lượng</label></td>
                         <td><input type="number" name="Quantity" id="Quantity" required></td>
                     </tr>
                     <tr>
-                        <td><label for="SoldQuantity">Sold Quantity</label></td>
+                        <td><label for="SoldQuantity">Số lượng bán ra</label></td>
                         <td><input type="number" name="SoldQuantity" id="SoldQuantity" value="0" readonly></td>
                     </tr>
                     <tr>
-                        <td><label for="Description">Description</label></td>
+                        <td><label for="Description">Mô tả sản phẩm</label></td>
                         <td><textarea name="Description" id="Description" required></textarea></td>
                     </tr>
                     <tr>
-                        <td><label for="Discontinued">Business Status</label></td>
+                        <td><label for="Discontinued">Trạng thái cung cấp</label></td>
                         <td>
-                            <input type="radio" name="Discontinued" id="Discontinued" value="1" checked> Continued
-                            <input type="radio" name="Discontinued" id="Discontinued" value="0"> Discontinued
+                            <input type="radio" name="Discontinued" id="Discontinued" value="1" checked> Còn bán
+                            <input type="radio" name="Discontinued" id="Discontinued" value="0"> Đã ngừng bán
                         </td>
                     </tr>
                     <tr>
                         <td><label for="IsHot">Hot</label></td>
                         <td>
-                            <input type="radio" name="IsHot" id="IsHot" value="false" checked> No
-                            <input type="radio" name="IsHot" id="IsHot" value="true"> Yes
+                            <input type="radio" name="IsHot" id="IsHot" value="false" checked> Không
+                            <input type="radio" name="IsHot" id="IsHot" value="true"> Có
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="CreateTime">Create Date</label></td>
+                        <td><label for="CreateTime">Ngày thêm sản phẩm</label></td>
                         <td><input type="datetime-local" name="CreateTime" id="CreateTime" value="<%= new java.util.Date().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime() %>"></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Insert Product" name="submit"></td>
+                        <td><input type="submit" value="Xác nhận" name="submit"></td>
                         <td><input type="reset" value="Clear"></td>
                     </tr>
                 </table>

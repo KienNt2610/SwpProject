@@ -42,8 +42,10 @@ public class AddToCartServlet extends HttpServlet {
             // Kiểm tra và lấy thông tin sản phẩm và số lượng từ request
             String productIdStr = request.getParameter("productId");
             String quantityStr = request.getParameter("quantity");
+            String color = request.getParameter("color");
+            String size = request.getParameter("size");
 
-            if (productIdStr == null || quantityStr == null) {
+            if (productIdStr == null || quantityStr == null || color == null || size == null) {
                 request.setAttribute("error", "Thông tin sản phẩm không hợp lệ");
                 request.getRequestDispatcher("/Cart.jsp").forward(request, response);
                 return;
@@ -64,35 +66,37 @@ public class AddToCartServlet extends HttpServlet {
             // Lấy sản phẩm từ cơ sở dữ liệu qua DAOProduct
             Product product = getProductById(productId);
 
-            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa (cùng màu và size)
             boolean productExists = false;
             for (Cart cartItem : cartList) {
-                if (cartItem.getProductId() == productId) {
+                if (cartItem.getProductId() == productId && 
+                    cartItem.getColor().equals(color) && 
+                    cartItem.getSize().equals(size)) {
                     cartItem.setQuantity(cartItem.getQuantity() + quantity);  // Cập nhật số lượng nếu sản phẩm đã có
                     productExists = true;
                     break;
                 }
             }
 
-            // Nếu sản phẩm chưa có trong giỏ, thêm mới vào giỏ
+        
             if (!productExists && product != null) {
                 Cart newCartItem = new Cart(product.getProductId(), product.getProductName(),
-                        product.getPrice(), quantity);
+                        product.getPrice(), quantity, color, size);
                 cartList.add(newCartItem);
             }
 
-            // Tính tổng giá trị giỏ hàng
+       
             double totalCartValue = 0;
             for (Cart cartItem : cartList) {
                 totalCartValue += cartItem.getTotalPrice();  // Cộng dồn giá trị của từng sản phẩm
             }
 
-            // Lưu giỏ hàng và tổng giá trị vào session
+           
             session.setAttribute("cart-list", cartList);
-            session.setAttribute("totalCartValue", totalCartValue);  // Lưu tổng giá trị giỏ hàng
+            session.setAttribute("totalCartValue", totalCartValue);  
             request.setAttribute("message", "Thêm vào giỏ hàng thành công");
 
-            // Chuyển hướng đến trang giỏ hàng
+         
             request.getRequestDispatcher("/Cart.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Số lượng sản phẩm không hợp lệ");
@@ -129,7 +133,7 @@ public class AddToCartServlet extends HttpServlet {
                     }
                 }
 
-                // Cập nhật tổng giá trị giỏ hàng
+           
                 double totalCartValue = 0;
                 for (Cart cartItem : cartList) {
                     totalCartValue += cartItem.getTotalPrice();
@@ -161,7 +165,7 @@ public class AddToCartServlet extends HttpServlet {
             if (cartList != null) {
                 cartList.removeIf(cartItem -> cartItem.getProductId() == productId);
 
-                // Cập nhật tổng giá trị giỏ hàng
+             
                 double totalCartValue = 0;
                 for (Cart cartItem : cartList) {
                     totalCartValue += cartItem.getTotalPrice();
@@ -177,15 +181,15 @@ public class AddToCartServlet extends HttpServlet {
         }
     }
 
-    // Sử dụng DAOProduct để lấy sản phẩm từ cơ sở dữ liệu
+
     private Product getProductById(int productId) {
         DAOProduct daoProduct = new DAOProduct();
         String sql = "SELECT * FROM Product WHERE ProductId = " + productId;
-        Vector<Product> products = daoProduct.getProduct(sql);  // Lấy danh sách sản phẩm
+        Vector<Product> products = daoProduct.getProduct(sql);  
         if (products.size() > 0) {
-            return products.get(0);  // Giả sử ID là duy nhất, lấy sản phẩm đầu tiên
+            return products.get(0);  
         }
-        return null;  // Nếu không tìm thấy sản phẩm
+        return null;  
     }
 
     @Override
