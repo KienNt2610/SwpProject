@@ -44,7 +44,7 @@ public class DAOProduct extends DBCConnection {
             pre.setTimestamp(8, product.getCreateTime() != null ? new java.sql.Timestamp(product.getCreateTime().getTime()) : null);
             pre.setDouble(9, product.getSalePrice());
             pre.setInt(10, product.isHot() ? 1 : 0);
-            pre.setString(11, product.getImage());  // Setting image path in the query
+            pre.setString(11, product.getImage()); 
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -52,7 +52,7 @@ public class DAOProduct extends DBCConnection {
         return n;
     }
 
-    // Add product to the database using PreparedStatement for security and performance
+
     public int addProduct(Product product) {
         int n = 0;
         String sql = "INSERT INTO [dbo].[Product]\n"
@@ -115,7 +115,7 @@ public class DAOProduct extends DBCConnection {
 
         try {
             if (rsOrderDetail.next() || rsFeedback.next() || rsCartDetail.next() || rsProductDetail.next()) {
-                // Product is referenced in other tables, update discontinued status
+             
                 changeDiscontinued(pid, 0);
                 return 0;
             }

@@ -12,11 +12,9 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <script>
-            // Function to validate the form
-            // Function to validate the form
+
             function validateForm() {
                 let isValid = true;
-                // Reset all error messages
                 $(".error").text("");
 
                 // Validate Full Name (customer_name) - Chỉ cho phép chữ và khoảng trắng
@@ -30,7 +28,7 @@
                     $("#fullNameError").text("Tên người dùng không hợp lệ.");
                 }
 
-                // Validate Username (username) - Chỉ cho phép chữ, số và dấu gạch dưới
+
                 var username = document.forms["signupForm"]["username"].value;
                 var usernameRegex = /^[a-zA-Z0-9_]+$/;
                 if (username.trim() === "") {
@@ -41,7 +39,7 @@
                     $("#usernameError").text("Tên đăng nhập không được có kí tự đặc biệt.");
                 }
 
-                // Validate Password (password) - Phải từ 6 ký tự trở lên và có ít nhất 1 chữ in hoa
+
                 var password = document.forms["signupForm"]["password"].value;
                 var passwordRegex = /^(?=.*[A-Z]).{6,}$/;
                 if (password.trim() === "") {
@@ -52,7 +50,7 @@
                     $("#passwordError").text("Mật khẩu phải có ít nhất 6 ký tự và chứa ít nhất một chữ cái in hoa.");
                 }
 
-                // Validate Confirm Password (confirm_password)
+
                 var confirmPassword = document.forms["signupForm"]["confirm_password"].value;
                 if (confirmPassword.trim() === "") {
                     isValid = false;
@@ -62,7 +60,7 @@
                     $("#confirmPasswordError").text("Mật khẩu và xác nhận mật khẩu không khớp.");
                 }
 
-                // Validate Email (email) - Kiểm tra định dạng email chuẩn
+
                 var email = document.forms["signupForm"]["email"].value;
                 var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                 if (email.trim() === "") {
@@ -73,7 +71,7 @@
                     $("#emailError").text("Email không hợp lệ.");
                 }
 
-                // Validate Phone Number (phone) - Phải có đúng 10 chữ số
+
                 var phone = document.forms["signupForm"]["phone"].value;
                 var phoneRegex = /^[0-9]{10}$/;
                 if (phone.trim() === "") {

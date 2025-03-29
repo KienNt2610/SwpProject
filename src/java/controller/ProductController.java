@@ -31,10 +31,10 @@ public class ProductController extends HttpServlet {
                 String sortBy = request.getParameter("sortBy");
                 String categoryId = request.getParameter("categoryId");
 
-                // Khởi tạo câu lệnh SQL với điều kiện cơ bản
+             
                 String sql = "SELECT * FROM Product WHERE 1=1";
 
-                // Thêm điều kiện lọc theo categoryId
+              
                 if (categoryId != null && !categoryId.trim().isEmpty()) {
                     sql += " AND CategoryId = '" + categoryId + "'";
                 }

@@ -33,9 +33,9 @@
         <style>
             /* Header Section */
             .header_section {
-                position: sticky; 
-                top: 0; 
-                z-index: 2; 
+                position: sticky;
+                top: 0;
+                z-index: 2;
                 padding: 15px 0;
                 background-color: white;
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -309,19 +309,19 @@
 
             @media (max-width: 768px) {
                 .col-md-12, .col-lg-4, .col-xl-3 {
-                    max-width: 100%; /* Đổi sang 1 sản phẩm trong một dòng khi màn hình rất nhỏ */
+                    max-width: 100%;
                 }
             }
 
-            /* Định dạng cho giá gốc khi có sale */
+
             .product-price .original-price {
-                text-decoration: line-through; /* Gạch bỏ giá gốc */
+                text-decoration: line-through;
                 font-size: 14px;
-                color: #999; /* Màu xám nhạt */
-                margin-right: 10px; /* Khoảng cách với giá sale */
+                color: #999;
+                margin-right: 10px;
             }
 
-            /* Định dạng cho giá sale */
+
             .product-price .sale-price {
                 font-size: 18px;
                 font-weight: bold;
@@ -330,20 +330,20 @@
                 transition: all 0.3s ease;
             }
 
-            /* Thêm hiệu ứng khi hover vào giá sale */
+
             .product-price .sale-price:hover {
-                transform: scale(1.1); /* Tăng kích thước khi hover vào giá sale */
-                color: #d93d3b; /* Màu đỏ đậm hơn khi hover */
+                transform: scale(1.1);
+                color: #d93d3b;
             }
 
-            /* Đảm bảo giá gốc và giá sale có khoảng cách hợp lý */
+
             .product-price {
                 margin-top: 10px;
                 font-size: 16px;
                 font-weight: 600;
             }
 
-            /* Sửa lại độ rộng của các phần tử bên trong box sản phẩm */
+
             .product-info {
                 padding: 15px;
                 text-align: center;
@@ -351,8 +351,8 @@
 
             /* Footer Styling */
             footer {
-                background-color: #f8f8f8; /* Màu nền sáng cho footer */
-                color: #333; /* Màu chữ tối */
+                background-color: #f8f8f8;
+                color: #333;
                 padding: 50px 0;
             }
 
@@ -363,12 +363,12 @@
 
             footer .row {
                 display: flex;
-                justify-content: space-between; /* Chia đều không gian giữa các cột */
-                flex-wrap: wrap; /* Cho phép các phần tử thừa xuống dòng khi màn hình nhỏ */
+                justify-content: space-between;
+                flex-wrap: wrap;
             }
 
             footer .col-md-4, footer .col-md-3, footer .col-md-5 {
-                flex: 1 1 30%; /* Các phần tử chia đều */
+                flex: 1 1 30%;
                 padding: 10px;
                 box-sizing: border-box;
                 text-align: left;
@@ -543,33 +543,24 @@
             </form>
 
             <!-- Sắp xếp sản phẩm -->
+
             <form method="GET" action="ProductURL" class="product-filter-form">
                 <input type="hidden" name="service" value="guestProduct">
+                <!-- Include the selected category in the form -->
+                <input type="hidden" name="categoryId" value="<%= selectedCategoryguest %>">
 
                 <label for="sortBy">Sắp xếp theo:</label>
                 <select name="sortBy" id="sortBy" class="form-control">
                     <option value="">Mặc định</option>
-                    <option value="priceAsc">Giá thấp đến cao</option>
-                    <option value="priceDesc">Giá cao đến thấp</option>
-                    <option value="nameAsc">Tên từ A-Z</option>
-                    <option value="nameDesc">Tên từ Z-A</option>
+                    <option value="priceAsc" <%= "priceAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Giá thấp đến cao</option>
+                    <option value="priceDesc" <%= "priceDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Giá cao đến thấp</option>
+                    <option value="nameAsc" <%= "nameAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Tên từ A-Z</option>
+                    <option value="nameDesc" <%= "nameDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Tên từ Z-A</option>
                 </select>
 
                 <button type="submit" class="btn btn-primary">Xác nhận</button>
             </form>
 
-            <!-- Filter by Hot Products -->
-            <form method="GET" action="ProductURL" class="product-filter-form">
-                <input type="hidden" name="service" value="guestProduct">
-
-                <label for="isHot">Sản phẩm hot:</label>
-                <select name="isHot" id="isHot" class="form-control">
-                    <option value="">Tất cả</option>
-                    <option value="1" <%= "1".equals(request.getAttribute("isHot")) ? "selected" : "" %>>Sản phẩm hot</option>
-                </select>
-
-                <button type="submit" class="btn btn-primary">Xác nhận</button>
-            </form>
         </div>
 
         <div class="main-content">
@@ -579,12 +570,12 @@
                         if (productList != null && !productList.isEmpty()) {
                             for (Product product : productList) {
                     %>
- 
+
                     <div class="col-md-12 col-lg-4 col-xl-3 mb-4">
                         <div class="product-card">
                             <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                <!-- Hiển thị ảnh sản phẩm -->
-                                <img src="<%= product.getImage() %>" class="w-100" />
+                                <!-- Hiển thị ảnh sản phẩm từ thư mục images, tên ảnh theo productId -->
+                                <img width="100" src="images/product<%= product.getProductId() %>.jpg" alt="<%= product.getProductName() %>" />
                             </div>
                             <div class="product-info">
                                 <h5><%= product.getProductName() %></h5>
@@ -607,7 +598,6 @@
 
                                 <div class="product-price">
                                     <% if (product.getSalePrice() < product.getPrice()) { %>
-
                                     <span class="original-price"><%= product.getPrice() %>đ</span>
                                     <span class="sale-price"><%= product.getSalePrice() %>đ</span>
                                     <% } else { %>
@@ -624,6 +614,7 @@
                             </div>
                         </div>
                     </div>
+
                     <% 
                             }
                         } else {
@@ -640,59 +631,7 @@
         <!-- footer start -->
         <footer>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="full">
-                            <div class="logo_footer">
-                                <a href="#"><img width="100" src="images/logo.png" alt="#" /></a>
-                            </div>
-                            <div class="information_f">
-                                <p><strong>Địa chỉ:</strong> TT02-01 MonCity, Ngõ 4 Hàm Nghi, Mỹ Đình 2, Nam Từ Liêm Hanoi, Vietnam</p>
-                                <p><strong>Số điện thoại:</strong> +84 833 617 083</p>
-                                <p><strong>Email:</strong> SportGear@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="widget_menu">
-                                            <h3>Thương hiệu</h3>
-                                            <ul>
-                                                <li><a href="#">Trang chủ</a></li>
-                                                <li><a href="#">Giới thiệu</a></li>
-                                                <li><a href="#">Tin tức</a></li>
-                                                <li><a href="#">Tuyển dụng</a></li>
-                                                <li><a href="#">Hệ thống cửa hàng</a></li>
-                                                <li><a href="#">Liên hệ</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="widget_menu">
-                                            <h3>Hỗ trợ</h3>
-                                            <ul>
-                                                <li><a href="#">Hỏi đáp</a></li>
-                                                <li><a href="#">Chính sách KHTT</a></li>
-                                                <li><a href="#">Chính sách vận chuyển</a></li>
-                                                <li><a href="#">Gợi ý tìm size</a></li>
-                                                <li><a href="#">Kiểm tra đơn hàng</a></li>
-                                                <li><a href="#">Chính sách bảo mật KH</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>     
-                            <div class="col-md-5">
-                                <div class="widget_menu">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p>&copy; 2025 SPORTGEARSHOP</p>
             </div>
         </footer>
 

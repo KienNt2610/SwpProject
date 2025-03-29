@@ -15,7 +15,7 @@
         <style>
             /* Header Section */
             .header_section {
-                position: sticky; 
+                position: sticky;
                 top: 0;
                 z-index: 2;
                 padding: 15px 0;
@@ -145,6 +145,306 @@
                 transform: rotate(90deg);
                 top: 0;
             }
+          
+            /* Reset CSS */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                background-color: #f5f5f5;
+                color: #333;
+            }
+
+            /* Header */
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+                margin: 30px 0;
+                font-size: 2.5em;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            /* Cart Table */
+            table {
+                width: 90%;
+                max-width: 1200px;
+                margin: 20px auto;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 15px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #2c3e50;
+                color: white;
+                font-weight: 500;
+            }
+
+            tr:hover {
+                background-color: #f9f9f9;
+            }
+
+            /* Quantity Controls */
+            td input[type="text"] {
+                width: 50px;
+                text-align: center;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+                margin: 0 10px;
+            }
+
+            td a {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                background-color: #3498db;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+            }
+
+            td a:hover {
+                background-color: #2980b9;
+            }
+
+            /* Remove Button */
+            input[type="submit"] {
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                padding: 8px 15px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #c0392b;
+            }
+
+            /* Total Section */
+            h3 {
+                text-align: right;
+                margin: 20px 5%;
+                font-size: 1.5em;
+                color: #2c3e50;
+            }
+
+            /* Checkout Button */
+            a[href="checkout.jsp"] {
+                display: inline-block;
+                background-color: #2ecc71;
+                color: white;
+                text-decoration: none;
+                padding: 12px 30px;
+                border-radius: 4px;
+                margin: 20px 5%;
+                transition: background-color 0.3s;
+            }
+
+            a[href="checkout.jsp"]:hover {
+                background-color: #27ae60;
+            }
+
+            /* Empty Cart Message */
+            p {
+                text-align: center;
+                color: #7f8c8d;
+                font-size: 1.2em;
+                margin: 30px 0;
+            }
+
+            /* Error Message */
+            .error {
+                background-color: #fde8e8;
+                color: #c53030;
+                padding: 10px;
+                border-radius: 4px;
+                margin: 10px 5%;
+                text-align: center;
+            }
+
+            /* Success Message */
+            .message {
+                background-color: #e8f5e9;
+                color: #2e7d32;
+                padding: 10px;
+                border-radius: 4px;
+                margin: 10px 5%;
+                text-align: center;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                table {
+                    width: 95%;
+                    font-size: 0.9em;
+                }
+
+                th, td {
+                    padding: 10px;
+                }
+
+                td input[type="text"] {
+                    width: 40px;
+                }
+
+                td a {
+                    width: 25px;
+                    height: 25px;
+                    line-height: 25px;
+                }
+            }
+            /* Header Section */
+            .header_section {
+                position: sticky;
+                top: 0;
+                z-index: 2;
+                padding: 15px 0;
+                background-color: white;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .header_section .container-fluid {
+                padding-right: 25px;
+                padding-left: 25px;
+            }
+
+            .navbar-brand {
+                font-family: 'Playfair Display', serif;
+            }
+
+            .navbar-brand span {
+                font-weight: bold;
+                font-size: 32px;
+                color: #000000;
+            }
+
+            .custom_nav-container {
+                padding: 0;
+            }
+
+            .custom_nav-container .navbar-nav {
+                margin-left: auto;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item .nav-link {
+                padding: 5px 20px;
+                color: #131313;
+                text-align: center;
+                text-transform: uppercase;
+                border-radius: 5px;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                font-weight: 700;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item .nav-link svg {
+                width: 17px;
+                height: auto;
+                fill: #000000;
+                margin-bottom: 2px;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item:hover .nav-link,
+            .custom_nav-container .navbar-nav .nav-item.active .nav-link {
+                color: #f7444e;
+            }
+
+            .custom_nav-container .navbar-nav .nav-item:hover .nav-link svg,
+            .custom_nav-container .navbar-nav .nav-item.active .nav-link svg {
+                fill: #f7444e;
+            }
+
+            .custom_nav-container .nav_search-btn {
+                width: 35px;
+                height: 35px;
+                padding: 0;
+                border: none;
+                color: #000000;
+            }
+
+            .custom_nav-container .nav_search-btn:hover {
+                color: #f7444e;
+            }
+
+            .custom_nav-container .navbar-toggler {
+                outline: none;
+            }
+
+            .custom_nav-container .navbar-toggler {
+                padding: 0;
+                width: 37px;
+                height: 42px;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+            }
+
+            .custom_nav-container .navbar-toggler span {
+                display: block;
+                width: 35px;
+                height: 4px;
+                background-color: #000000;
+                margin: 7px 0;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                position: relative;
+                border-radius: 5px;
+                transition: all 0.3s;
+            }
+
+            .custom_nav-container .navbar-toggler span::before,
+            .custom_nav-container .navbar-toggler span::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #000000;
+                top: -10px;
+                border-radius: 5px;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+            }
+
+            .custom_nav-container .navbar-toggler span::after {
+                top: 10px;
+            }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] span {
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] span::before,
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+                top: 0;
+            }
+      
         </style>
         <title>Login</title>
     </head>
@@ -214,7 +514,7 @@
 
                                 <div class="d-flex mb-5 align-items-center">
 
-                                    <span class="ml-auto"><a href="#" class="forgot-pass">Quên mật khẩu</a></span> 
+
                                 </div>
 
                                 <input type="submit" value="Đăng Nhập" class="btn btn-block btn-primary">
@@ -233,7 +533,7 @@
                                 <p>Đăng ký tài khoản mới! <a href="/SwpProject/guest/display/customerRegister.jsp">Đăng ký</a></p>
                             </form>
 
-                        
+
                             <c:if test="${not empty errorMessage}">
                                 <div class="alert alert-danger">
                                     ${errorMessage}
@@ -249,5 +549,10 @@
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 SPORTGEARSHOP</p>
+            </div>
+        </footer>
     </body>
 </html>
